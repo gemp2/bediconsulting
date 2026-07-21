@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bedi Consulting — Project Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/maplibre-gl@4.1.3/dist/maplibre-gl.css" rel="stylesheet">
+<script src="https://unpkg.com/maplibre-gl@4.1.3/dist/maplibre-gl.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#C8A96E;--navy:#06090F;--navy2:#0D1525;--navy3:#111B2E;--text:#E8E4DA;--muted:rgba(232,228,218,0.5);--border:rgba(255,255,255,0.07)}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Inter',sans-serif;background:var(--navy);color:var(--text);display:flex;flex-direction:column}
+
+/* NAV */
+nav{flex-shrink:0;background:rgba(6,9,15,0.98);border-bottom:0.5px solid var(--border);padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;z-index:1000;position:relative}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:14px;letter-spacing:.07em;color:#fff}
+.logo span{color:var(--gold)}
+.nav-title{font-size:11.5px;color:var(--muted);letter-spacing:.06em}
+.nav-back{font-size:11.5px;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-back:hover{color:var(--gold)}
+
+/* LAYOUT */
+.app{flex:1;display:flex;overflow:hidden}
+
+/* SIDEBAR */
+.sidebar{width:296px;flex-shrink:0;background:var(--navy2);border-right:0.5px solid var(--border);display:flex;flex-direction:column;overflow:hidden;z-index:500}
+.sb-head{padding:16px 18px 12px;border-bottom:0.5px solid var(--border)}
+.sb-head h2{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff;margin-bottom:3px}
+.sb-head p{font-size:11px;color:var(--muted)}
+.pills{display:flex;gap:5px;margin-top:9px;flex-wrap:wrap}
+.pill{font-size:9.5px;padding:3px 9px;border-radius:20px;background:rgba(200,169,110,.1);border:0.5px solid rgba(200,169,110,.22);color:var(--gold)}
+
+/* FILTERS */
+.filters{padding:12px 18px;border-bottom:0.5px solid var(--border);display:flex;flex-direction:column;gap:10px}
+.fg label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(200,169,110,.45);display:block;margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.chip{font-size:10px;padding:4px 10px;border-radius:3px;border:0.5px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;line-height:1}
+.chip:hover{border-color:rgba(200,169,110,.35);color:var(--text)}
+.chip.on{background:rgba(200,169,110,.1);border-color:rgba(200,169,110,.45);color:var(--gold)}
+.chip.onall{background:rgba(232,228,218,.06);border-color:rgba(232,228,218,.25);color:var(--text)}
+
+/* LIST */
+.proj-list{flex:1;overflow-y:auto;padding:6px 0}
+.proj-list::-webkit-scrollbar{width:3px}
+.proj-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:2px}
+.proj-item{padding:9px 18px;border-bottom:0.5px solid rgba(255,255,255,.03);cursor:pointer;transition:background .12s;display:flex;gap:9px;align-items:flex-start}
+.proj-item:hover{background:rgba(255,255,255,.025)}
+.proj-item.active{background:rgba(200,169,110,.07);border-left:2px solid var(--gold);padding-left:16px}
+.p-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.p-name{font-size:11.5px;font-weight:500;color:var(--text);line-height:1.35;margin-bottom:1px}
+.p-sub{font-size:10px;color:var(--muted)}
+.p-yr{font-size:9.5px;color:var(--gold);flex-shrink:0;margin-left:auto;padding-top:1px}
+.no-res{padding:24px 18px;color:var(--muted);font-size:12px;text-align:center}
+
+/* MAP */
+.map-wrap{flex:1;position:relative}
+#map{width:100%;height:100%}
+
+/* OVERLAY UI */
+.map-ui{position:absolute;top:14px;left:14px;z-index:400;display:flex;gap:8px;align-items:center}
+.ui-count{background:rgba(6,9,15,.9);border:0.5px solid var(--border);border-radius:5px;padding:7px 12px;font-size:11px;color:var(--muted);backdrop-filter:blur(8px)}
+.ui-count strong{color:#fff;font-weight:500}
+.ui-reset{background:rgba(13,21,37,.9);border:0.5px solid rgba(200,169,110,.3);border-radius:4px;padding:7px 13px;font-size:11px;color:var(--gold);cursor:pointer;font-family:'Inter',sans-serif;backdrop-filter:blur(8px);display:none;transition:all .2s}
+.ui-reset:hover{background:rgba(200,169,110,.12)}
+
+/* LEGEND */
+.legend{position:absolute;bottom:28px;right:14px;background:rgba(6,9,15,.92);border:0.5px solid var(--border);border-radius:8px;padding:13px 15px;z-index:400;backdrop-filter:blur(10px);min-width:188px}
+.legend h4{font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(200,169,110,.45);margin-bottom:9px}
+.leg{display:flex;align-items:center;gap:8px;margin-bottom:6px;cursor:pointer;transition:opacity .15s}
+.leg:last-child{margin-bottom:0}
+.leg:hover{opacity:.8}
+.ld{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.ll{font-size:10.5px;color:var(--muted);flex:1}
+.lc{font-size:10px;color:rgba(200,169,110,.5);min-width:14px;text-align:right}
+
+/* CUSTOM MARKER */
+.bm{border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;color:#fff;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.55);transition:transform .18s,box-shadow .18s;border:2px solid rgba(255,255,255,.18)}
+.bm:hover{transform:scale(1.18)!important;box-shadow:0 4px 20px rgba(0,0,0,.7)!important}
+.bm.bm-active{border-color:#fff!important;box-shadow:0 0 0 3px rgba(255,255,255,.25),0 4px 20px rgba(0,0,0,.7)!important}
+
+/* POPUP */
+.maplibregl-popup-content{background:var(--navy2)!important;border:0.5px solid rgba(255,255,255,.1)!important;border-radius:9px!important;padding:0!important;box-shadow:0 8px 32px rgba(0,0,0,.65)!important;color:var(--text)!important;font-family:'Inter',sans-serif!important;min-width:250px!important;max-width:290px!important}
+.maplibregl-popup-tip{border-top-color:var(--navy2)!important}
+.maplibregl-popup-close-button{color:var(--muted)!important;font-size:18px!important;top:8px!important;right:10px!important;background:none!important;padding:0!important;line-height:1!important}
+.maplibregl-popup-close-button:hover{color:#fff!important}
+.pop{padding:16px 18px 18px}
+.pop-cat{font-size:9px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:5px;font-weight:500}
+.pop-name{font-family:'Syne',sans-serif;font-size:13.5px;font-weight:800;color:#fff;margin-bottom:9px;line-height:1.2;padding-right:18px}
+.pop-rows{display:flex;flex-direction:column;gap:3px;margin-bottom:10px}
+.pop-r{display:flex;gap:6px;font-size:10.5px}
+.pop-l{color:var(--muted);min-width:48px;flex-shrink:0}
+.pop-v{color:var(--text);font-weight:500}
+.pop-desc{font-size:11px;color:rgba(232,228,218,.55);line-height:1.6;margin-bottom:10px}
+.pop-aw{display:flex;flex-wrap:wrap;gap:4px}
+.pop-aw span{font-size:9.5px;padding:3px 8px;border-radius:3px;background:rgba(200,169,110,.09);color:var(--gold);border:0.5px solid rgba(200,169,110,.2)}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">BEDI<span>.</span>CONSULTING</div>
+  <div class="nav-title">Global Project Map — 28 projects · 9 countries</div>
+  <a class="nav-back" href="#">← Back to site</a>
+</nav>
+
+<div class="app">
+  <div class="sidebar">
+    <div class="sb-head">
+      <h2>Project Portfolio</h2>
+      <p>Filter, click a pin or select from the list</p>
+      <div class="pills">
+        <span class="pill" id="pl-n">28 projects</span>
+        <span class="pill">9 countries</span>
+        <span class="pill">2002 – 2024</span>
+      </div>
+    </div>
+
+    <div class="filters">
+      <div class="fg">
+        <label>Type</label>
+        <div class="chips" id="fc-type">
+          <button class="chip onall" data-v="all">All</button>
+          <button class="chip" data-v="Road Tunnels">Road</button>
+          <button class="chip" data-v="Metro / Rail">Metro</button>
+          <button class="chip" data-v="Utility Tunnels">Utility</button>
+          <button class="chip" data-v="Deep Excavation">Excavation</button>
+          <button class="chip" data-v="Mining">Mining</button>
+          <button class="chip" data-v="Digital Assessment">Digital</button>
+          <button class="chip" data-v="Other">Other</button>
+        </div>
+      </div>
+      <div class="fg">
+        <label>Region</label>
+        <div class="chips" id="fc-region">
+          <button class="chip onall" data-v="all">All</button>
+          <button class="chip" data-v="Europe">Europe</button>
+          <button class="chip" data-v="Americas">Americas</button>
+          <button class="chip" data-v="Asia">Asia</button>
+          <button class="chip" data-v="Middle East">Middle East</button>
+          <button class="chip" data-v="Oceania">Oceania</button>
+        </div>
+      </div>
+      <div class="fg">
+        <label>Period</label>
+        <div class="chips" id="fc-year">
+          <button class="chip onall" data-v="all">All</button>
+          <button class="chip" data-v="2002-2005">2002–05</button>
+          <button class="chip" data-v="2006-2009">2006–09</button>
+          <button class="chip" data-v="2010-2013">2010–13</button>
+          <button class="chip" data-v="2014-2024">2014–24</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-list" id="proj-list"></div>
+  </div>
+
+  <div class="map-wrap">
+    <div id="map"></div>
+    <div class="map-ui">
+      <div class="ui-count" id="ui-count"><strong>28</strong> projects shown</div>
+      <button class="ui-reset" id="ui-reset" onclick="resetAll()">✕ Reset filters</button>
+    </div>
+    <div class="legend">
+      <h4>Project type</h4>
+      <div class="leg" onclick="clickLegend('Road Tunnels')"><div class="ld" style="background:#4A9EBF"></div><span class="ll">Road Tunnels</span><span class="lc" id="lc0">4</span></div>
+      <div class="leg" onclick="clickLegend('Metro / Rail')"><div class="ld" style="background:#C8A96E"></div><span class="ll">Metro / Rail</span><span class="lc" id="lc1">8</span></div>
+      <div class="leg" onclick="clickLegend('Utility Tunnels')"><div class="ld" style="background:#7CB87C"></div><span class="ll">Utility Tunnels</span><span class="lc" id="lc2">5</span></div>
+      <div class="leg" onclick="clickLegend('Deep Excavation')"><div class="ld" style="background:#E07B54"></div><span class="ll">Deep Excavation</span><span class="lc" id="lc3">3</span></div>
+      <div class="leg" onclick="clickLegend('Mining')"><div class="ld" style="background:#B87CC8"></div><span class="ll">Mining</span><span class="lc" id="lc4">2</span></div>
+      <div class="leg" onclick="clickLegend('Digital Assessment')"><div class="ld" style="background:#50C8A0"></div><span class="ll">Digital Assessment</span><span class="lc" id="lc5">3</span></div>
+      <div class="leg" onclick="clickLegend('Other')"><div class="ld" style="background:#8FA8C8"></div><span class="ll">Other</span><span class="lc" id="lc6">3</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const COLORS = {"Road Tunnels":"#4A9EBF","Metro / Rail":"#C8A96E","Utility Tunnels":"#7CB87C","Deep Excavation":"#E07B54","Mining":"#B87CC8","Digital Assessment":"#50C8A0","Other":"#8FA8C8"};
+const ICONS = {"Road Tunnels":"🛣","Metro / Rail":"🚇","Utility Tunnels":"⚡","Deep Excavation":"⬇","Mining":"⛏","Digital Assessment":"📡","Other":"🏗"};
+const LC_IDS = ["Road Tunnels","Metro / Rail","Utility Tunnels","Deep Excavation","Mining","Digital Assessment","Other"];
+
+const PROJECTS = [
+  {id:1,  name:"Port of Miami Tunnel",                    type:"Road Tunnels",      year:2013, loc:"Miami, Florida, USA",          region:"Americas",    lat:25.775,  lng:-80.168, desc:"TBM-driven twin tunnel beneath Biscayne Bay connecting the Port of Miami to I-395."},
+  {id:2,  name:"Sentosa Gateway Tunnel",                  type:"Road Tunnels",      year:2009, loc:"Singapore",                   region:"Asia",        lat:1.256,   lng:103.821, desc:"Road tunnel connecting Sentosa Island to the mainland in mixed tropical ground conditions."},
+  {id:3,  name:"Eagles Nest Highway Tunnels",             type:"Road Tunnels",      year:2004, loc:"Hong Kong",                   region:"Asia",        lat:22.348,  lng:114.128, desc:"Highway tunnels through granite rock in Hong Kong's challenging terrain."},
+  {id:4,  name:"Kallang & Paya Lebar Expressway",         type:"Road Tunnels",      year:2003, loc:"Singapore",                   region:"Asia",        lat:1.310,   lng:103.872, desc:"Cut and cover and bored tunnel sections of the KPE expressway through dense urban Singapore."},
+  {id:5,  name:"Victoria Station Upgrade",                type:"Metro / Rail",      year:2007, loc:"London, UK",                  region:"Europe",      lat:51.4965, lng:-0.1447, desc:"£741M upgrade of London's busiest Underground station. SCL tunnelling with <50mm clearance to live LU assets.", awards:["ITA Project of the Year 2014","BGA Fleming Award 2015","Specialist Tunnelling Project 2016"]},
+  {id:6,  name:"Vauxhall Station Upgrade",                type:"Metro / Rail",      year:2013, loc:"London, UK",                  region:"Europe",      lat:51.486,  lng:-0.122,  desc:"SCL tunnel design and construction support for the upgrade of Vauxhall Underground station."},
+  {id:7,  name:"Bond Street Station Upgrade",             type:"Metro / Rail",      year:2012, loc:"London, UK",                  region:"Europe",      lat:51.514,  lng:-0.149,  desc:"Tunnel design for the Bond Street station upgrade as part of the Crossrail works."},
+  {id:8,  name:"Tottenham Court Road Station Upgrade",    type:"Metro / Rail",      year:2011, loc:"London, UK",                  region:"Europe",      lat:51.516,  lng:-0.130,  desc:"Complex SCL tunnelling beneath one of London's busiest intersections as part of Crossrail station upgrade."},
+  {id:9,  name:"Crossrail C121 Station Caverns",          type:"Metro / Rail",      year:2008, loc:"London, UK",                  region:"Europe",      lat:51.516,  lng:0.038,   desc:"SCL design for running tunnels and cross-passages on the Crossrail C121 contract in East London."},
+  {id:10, name:"New York Penn Station Extension",         type:"Metro / Rail",      year:2009, loc:"New York / New Jersey, USA",   region:"Americas",    lat:40.750,  lng:-74.002, desc:"Deep excavation and mined tunnel design for the Penn Station Extension project in Manhattan."},
+  {id:11, name:"No.7 Line Subway Extension",              type:"Metro / Rail",      year:2009, loc:"New York City, USA",           region:"Americas",    lat:40.757,  lng:-74.000, desc:"Geotechnical and tunnel design for the extension of the No.7 subway line in Midtown Manhattan."},
+  {id:12, name:"New Metro Rail Tunnel Project",           type:"Metro / Rail",      year:2005, loc:"Perth, WA, Australia",         region:"Oceania",     lat:-31.952, lng:115.861, desc:"Design support for the new underground metro rail tunnel project in central Perth."},
+  {id:13, name:"NS1 North–South Cable Tunnel",            type:"Utility Tunnels",   year:2012, loc:"Singapore",                   region:"Asia",        lat:1.352,   lng:103.820, desc:"TBM-driven high-voltage transmission cable tunnel for Singapore's national power grid."},
+  {id:14, name:"Kupe Microtunnel Shore Crossing",         type:"Utility Tunnels",   year:2006, loc:"Taranaki, New Zealand",        region:"Oceania",     lat:-39.52,  lng:173.98,  desc:"Microtunnel shore crossing for the Kupe gas field subsea pipeline landfall."},
+  {id:15, name:"Warragamba Deep Storage Recovery",        type:"Utility Tunnels",   year:2005, loc:"NSW, Australia",               region:"Oceania",     lat:-33.870, lng:150.622, desc:"Deep utility tunnel for Warragamba dam water storage and recovery infrastructure."},
+  {id:16, name:"TransGrid Cable Tunnel",                  type:"Utility Tunnels",   year:2002, loc:"Sydney, NSW, Australia",       region:"Oceania",     lat:-33.872, lng:151.205, desc:"Underground high-voltage cable tunnel for TransGrid in central Sydney."},
+  {id:17, name:"Albany Pipe Jack Project",                type:"Utility Tunnels",   year:2003, loc:"Albany, WA, Australia",        region:"Oceania",     lat:-35.027, lng:117.884, desc:"Pipe jacking project for utility infrastructure in Albany, Western Australia."},
+  {id:18, name:"Mt Whaleback Loadout Tunnels",            type:"Mining",            year:2005, loc:"Newman, WA, Australia",        region:"Oceania",     lat:-23.361, lng:119.662, desc:"Advanced geotechnical analysis of loadout tunnels at the Mt Whaleback iron ore mine."},
+  {id:19, name:"Port Hedland Under Harbour Tunnel",       type:"Mining",            year:2010, loc:"Port Hedland, WA, Australia",  region:"Oceania",     lat:-20.312, lng:118.576, desc:"Under-harbour tunnel restoration for mining export infrastructure at Port Hedland."},
+  {id:20, name:"Riyadh Metro L1 TBM Launch Boxes",       type:"Deep Excavation",   year:2014, loc:"Riyadh, Saudi Arabia",         region:"Middle East", lat:24.714,  lng:46.675,  desc:"Two 100m×16m TBM launch shafts in karstic Jurassic limestone with highly variable groundwater.", client:"Gall Zeidler Consultants"},
+  {id:21, name:"Beenyup WWTP Deep Excavation",           type:"Deep Excavation",   year:2006, loc:"Perth, WA, Australia",         region:"Oceania",     lat:-31.737, lng:115.744, desc:"Deep excavation design for the Beenyup wastewater treatment plant expansion."},
+  {id:22, name:"Quinns Main Sewer — Alkimos WWTP",       type:"Deep Excavation",   year:2005, loc:"Perth, WA, Australia",         region:"Oceania",     lat:-31.671, lng:115.706, desc:"Tunnel and shaft design for the Quinns main sewer connection to Alkimos WWTP."},
+  {id:23, name:"Sapperton Tunnel Digital Assessment",     type:"Digital Assessment",year:2019, loc:"Gloucestershire, UK",          region:"Europe",      lat:51.701,  lng:-2.072,  desc:"LiDAR + point cloud non-invasive assessment of this 1845 Brunel tunnel — 5 possessions, zero extended closures.", client:"Network Rail"},
+  {id:24, name:"VSU — 3D/4D BIM Management",             type:"Digital Assessment",year:2012, loc:"London, UK",                  region:"Europe",      lat:51.498,  lng:-0.146,  desc:"Real-time 3D/4D BIM for tunnel face sequencing and geotechnical risk management at Victoria Station."},
+  {id:25, name:"Riyadh Metro — FEM Digital Design",      type:"Digital Assessment",year:2015, loc:"Riyadh, Saudi Arabia",         region:"Middle East", lat:24.720,  lng:46.680,  desc:"Advanced FEM numerical modelling and digital geotechnical analysis for TBM launch shaft design."},
+  {id:26, name:"Burnett Dam Alliance",                    type:"Other",             year:2004, loc:"Queensland, Australia",        region:"Oceania",     lat:-25.47,  lng:151.48,  desc:"Geotechnical assessment and infrastructure design for the Burnett Dam Alliance project."},
+  {id:27, name:"Kelly's Gully Bridge Assessment",         type:"Other",             year:2004, loc:"NSW, Australia",               region:"Oceania",     lat:-32.50,  lng:151.60,  desc:"Structural assessment of Kelly's Gully bridge and various other NSW bridge structures."},
+  {id:28, name:"Lihir 30MW Geothermal Power",            type:"Other",             year:2004, loc:"Papua New Guinea",             region:"Oceania",     lat:-3.145,  lng:152.633, desc:"Geotechnical design for a 30MW geothermal power project on Lihir Island, Papua New Guinea."},
+];
+
+// ─── STATE ───
+let fType="all", fRegion="all", fYear="all", activeId=null;
+const markerEls = {}; // id → {el, popup}
+
+function inYear(p,v){if(v==="all")return true;const[s,e]=v.split("-").map(Number);return p.year>=s&&p.year<=e;}
+function visible(){return PROJECTS.filter(p=>(fType==="all"||p.type===fType)&&(fRegion==="all"||p.region===fRegion)&&inYear(p,fYear));}
+
+// ─── MAP ───
+const map = new maplibregl.Map({
+  container:'map',
+  style:'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
+  center:[20,15],
+  zoom:1.8,
+  minZoom:1,
+  maxZoom:16,
+  attributionControl:true
+});
+
+map.addControl(new maplibregl.NavigationControl({showCompass:false}),'top-right');
+
+// ─── MARKERS ───
+const allMarkers = {}; // id → maplibregl.Marker
+
+function mkMarker(p, active){
+  const c = COLORS[p.type]||"#888";
+  const sz = active ? 34 : 26;
+  const fs = active ? 11 : 9;
+  const el = document.createElement('div');
+  el.className = 'bm' + (active?' bm-active':'');
+  el.style.cssText = `width:${sz}px;height:${sz}px;background:${c};font-size:${fs}px;`;
+  el.textContent = p.id;
+  el.onclick = ()=>selectProj(p.id);
+  return el;
+}
+
+function buildMarkers(){
+  // remove all existing
+  Object.values(allMarkers).forEach(m=>m.remove());
+  Object.keys(allMarkers).forEach(k=>delete allMarkers[k]);
+  const vis = visible();
+  vis.forEach(p=>{
+    const el = mkMarker(p, activeId===p.id);
+    const m = new maplibregl.Marker({element:el, anchor:'center'})
+      .setLngLat([p.lng, p.lat])
+      .addTo(map);
+    allMarkers[p.id] = m;
+  });
+  updateCounter(vis.length);
+  buildList(vis);
+  updateLegend();
+}
+
+// ─── POPUP ───
+let currentPopup = null;
+
+function showPopup(p){
+  if(currentPopup){
+    const toRemove = currentPopup;
+    currentPopup = null; // null before remove so the old close handler becomes a no-op
+    toRemove.remove();
+  }
+  const c = COLORS[p.type]||"#888";
+  const html = `<div class="pop">
+    <div class="pop-cat" style="color:${c}">${ICONS[p.type]||''} ${p.type}</div>
+    <div class="pop-name">${p.name}</div>
+    <div class="pop-rows">
+      <div class="pop-r"><span class="pop-l">Location</span><span class="pop-v">${p.loc}</span></div>
+      <div class="pop-r"><span class="pop-l">Year</span><span class="pop-v">${p.year}</span></div>
+      <div class="pop-r"><span class="pop-l">Region</span><span class="pop-v">${p.region}</span></div>
+      ${p.client?`<div class="pop-r"><span class="pop-l">Client</span><span class="pop-v">${p.client}</span></div>`:''}
+    </div>
+    <p class="pop-desc">${p.desc}</p>
+    ${p.awards?`<div class="pop-aw">${p.awards.map(a=>`<span>🏆 ${a}</span>`).join('')}</div>`:''}
+  </div>`;
+  currentPopup = new maplibregl.Popup({closeButton:true, maxWidth:'300px', offset:16})
+    .setLngLat([p.lng, p.lat])
+    .setHTML(html)
+    .addTo(map);
+  const thisPopup = currentPopup;
+  currentPopup.on('close',()=>{
+    if(currentPopup===thisPopup){currentPopup=null;activeId=null;buildMarkers();}
+  });
+}
+
+// ─── SELECT ───
+function selectProj(id){
+  if(activeId===id){
+    activeId=null;
+    if(currentPopup){const toRemove=currentPopup;currentPopup=null;toRemove.remove();}
+    buildMarkers();
+    return;
+  }
+  activeId=id;
+  buildMarkers();
+  const p=PROJECTS.find(x=>x.id===id);
+  map.flyTo({center:[p.lng,p.lat], zoom:Math.max(map.getZoom(),5), duration:700, essential:true});
+  setTimeout(()=>showPopup(p),200);
+  const li=document.getElementById('li-'+id);
+  if(li)li.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ─── LIST ───
+function buildList(vis){
+  const el=document.getElementById('proj-list');
+  if(!vis.length){el.innerHTML=`<div class="no-res">No projects match the current filters.</div>`;return;}
+  el.innerHTML=vis.map(p=>`
+    <div class="proj-item${activeId===p.id?' active':''}" id="li-${p.id}" onclick="selectProj(${p.id})">
+      <div class="p-dot" style="background:${COLORS[p.type]||'#888'}"></div>
+      <div style="flex:1;min-width:0">
+        <div class="p-name">${p.name}</div>
+        <div class="p-sub">${p.loc}</div>
+      </div>
+      <div class="p-yr">${p.year}</div>
+    </div>`).join('');
+}
+
+function updateCounter(n){
+  document.getElementById('ui-count').innerHTML=`<strong>${n}</strong> project${n!==1?'s':''} shown`;
+  document.getElementById('pl-n').textContent=`${n} project${n!==1?'s':''}`;
+  document.getElementById('ui-reset').style.display=(fType!=="all"||fRegion!=="all"||fYear!=="all")?'block':'none';
+}
+
+function updateLegend(){
+  const vis=visible();const cnt={};vis.forEach(p=>cnt[p.type]=(cnt[p.type]||0)+1);
+  LC_IDS.forEach((t,i)=>document.getElementById('lc'+i).textContent=cnt[t]||0);
+}
+
+// ─── FILTER LOGIC ───
+function setupChips(groupId, setter){
+  document.getElementById(groupId).addEventListener('click',e=>{
+    const ch=e.target.closest('.chip');if(!ch)return;
+    const v=ch.dataset.v;
+    setter(v);activeId=null;if(currentPopup){currentPopup.remove();currentPopup=null;}
+    document.querySelectorAll(`#${groupId} .chip`).forEach(c=>{
+      const match=c.dataset.v===v;
+      c.classList.toggle('on',match&&v!=="all");
+      c.classList.toggle('onall',match&&v==="all");
+    });
+    buildMarkers();
+  });
+}
+setupChips('fc-type', v=>fType=v);
+setupChips('fc-region', v=>fRegion=v);
+setupChips('fc-year', v=>fYear=v);
+
+function clickLegend(t){
+  fType = fType===t?"all":t;activeId=null;
+  if(currentPopup){currentPopup.remove();currentPopup=null;}
+  document.querySelectorAll('#fc-type .chip').forEach(c=>{
+    const match=c.dataset.v===fType;
+    c.classList.toggle('on',match&&fType!=="all");
+    c.classList.toggle('onall',match&&fType==="all");
+  });
+  buildMarkers();
+}
+
+function resetAll(){
+  fType="all";fRegion="all";fYear="all";activeId=null;
+  if(currentPopup){currentPopup.remove();currentPopup=null;}
+  document.querySelectorAll('.chip').forEach(c=>{c.classList.remove('on');if(c.dataset.v==="all")c.classList.add('onall');else c.classList.remove('onall');});
+  buildMarkers();
+}
+
+// ─── INIT ───
+map.on('load',()=>{buildMarkers();});
+</script>
+</body>
+</html>

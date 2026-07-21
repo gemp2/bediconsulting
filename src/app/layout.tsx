@@ -17,6 +17,9 @@ const inter = Inter({
   weight: ["300", "400", "500", "600"],
 });
 
+/** Opt-in flag so the placeholder site cannot be indexed by accident. */
+const indexingAllowed = process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true";
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
@@ -32,7 +35,13 @@ export const metadata: Metadata = {
     locale: "en_GB",
     type: "website",
   },
-  robots: { index: true, follow: true },
+  // Blocked from search engines until real content replaces the placeholders.
+  // The preview deployment contains strings like TEAM_MEMBER_02 that must never
+  // be indexed against the BEDI name. To go live, set
+  // NEXT_PUBLIC_ALLOW_INDEXING=true in the Vercel project settings.
+  robots: indexingAllowed
+    ? { index: true, follow: true }
+    : { index: false, follow: false, nocache: true },
 };
 
 export default function RootLayout({

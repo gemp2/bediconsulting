@@ -77,6 +77,15 @@ a dead download link. Produce the PDFs or leave as-is.
 
 ## 4. Before going live
 
+> **The site is currently blocked from Google.** Both `robots.txt` and the
+> robots meta tag say `noindex` while placeholder content is live, so
+> "TEAM_MEMBER_02" can never be indexed against the BEDI name.
+>
+> **To launch:** add `NEXT_PUBLIC_ALLOW_INDEXING=true` to the Vercel project's
+> environment variables and redeploy. Do this *only* once the placeholders are
+> gone.
+
+
 - [ ] **Contact form has no backend.** It currently opens the visitor's mail
       client with a pre-filled message. That works, but enquiries depend on the
       visitor having mail configured. Wire up Resend / Formspree / a route

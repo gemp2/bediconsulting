@@ -11,7 +11,34 @@
  * render a visible DRAFT badge and cannot be mistaken for real posts.
  */
 
-export const companyUrl = "https://www.linkedin.com/company/bedi-consulting"; // TODO: confirm the real handle
+export const companyUrl =
+  "https://www.linkedin.com/company/bedi-consulting-ltd/";
+
+/**
+ * Live-feed widget (Option B). The feed auto-updates once this is configured
+ * with a real embed ID from a third-party provider.
+ *
+ * TO GO LIVE:
+ *   1. Sign up at sociablekit.com (or embedsocial.com), connect the BEDI
+ *      LinkedIn page, and create a "LinkedIn Page Posts" widget.
+ *   2. Paste the widget's embed ID into `embedId` below and set `scriptSrc`
+ *      + `containerClass` to the snippet the provider gives you (the defaults
+ *      below are SociableKit's LinkedIn Page Posts widget).
+ *   3. Add a cookie-consent + privacy notice — the widget loads an external
+ *      script and sets third-party cookies (see CONTENT-TODO.md §4).
+ *
+ * While `embedId` is the placeholder EXAMPLE_ID, NO external script loads and
+ * the site shows the styled example carousel instead — so there are no
+ * third-party cookies yet.
+ */
+export const widget = {
+  provider: "SociableKit",
+  embedId: "EXAMPLE_ID", // <-- replace with the real widget ID to go live
+  scriptSrc: "https://widgets.sociablekit.com/linkedin-page-posts/widget.js",
+  containerClass: "sk-ww-linkedin-page-post",
+};
+
+export const widgetConfigured = widget.embedId !== "EXAMPLE_ID";
 
 export type LinkedInPost = {
   id: string;

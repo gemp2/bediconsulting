@@ -69,14 +69,20 @@ Only `a.bedi@bediconsulting.com` exists. Needed: full postal address, phone,
 and the LinkedIn company page URL.
 
 ### LinkedIn feed — `src/data/linkedin.ts`
-The home page ends with a LinkedIn feed carousel (deck block 5), currently
-showing three placeholder posts. To make it real:
-1. Set `companyUrl` to the actual BEDI LinkedIn company page.
-2. Either fill `posts` with real updates by hand, **or** decide you want a
-   live auto-updating feed — that needs a third-party widget (EmbedSocial,
-   SociableKit or Taggbox). Those load an external script and set cookies, so
-   they'd also need a mention in the cookie/privacy notice. Tell me which and
-   I'll wire it in.
+The home page ends with a LinkedIn feed (deck block 5). `companyUrl` is set to
+the real BEDI page. Approach chosen: **Option B, a live auto-updating widget
+(SociableKit).** The integration is wired but not yet connected — an example
+carousel shows in its place, and **no external script loads until a real embed
+ID is set**, so there are no third-party cookies yet.
+
+To go live:
+1. Sign up at sociablekit.com, connect the BEDI LinkedIn page, create a
+   "LinkedIn Page Posts" widget.
+2. Put the widget's embed ID into `widget.embedId` (replacing `EXAMPLE_ID`).
+   If SociableKit gives a different script URL / container class, update
+   `scriptSrc` and `containerClass` to match.
+3. **Add cookie consent + a privacy notice** — the widget sets third-party
+   cookies. This is now required, not optional (see §4).
 
 ### Project datasheets
 The drafts had four "Download Datasheet" buttons all pointing at `#` — no PDFs

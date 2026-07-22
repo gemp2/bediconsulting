@@ -1,21 +1,8 @@
 import type { Metadata } from "next";
-import { Syne, Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { site } from "@/data/site";
-
-const syne = Syne({
-  variable: "--font-syne",
-  subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-});
 
 /** Opt-in flag so the placeholder site cannot be indexed by accident. */
 const indexingAllowed = process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true";
@@ -50,10 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en-GB"
-      className={`${syne.variable} ${inter.variable} h-full antialiased`}
-    >
+    <html lang="en-GB" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
         <a
           href="#main"

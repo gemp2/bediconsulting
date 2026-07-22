@@ -1,20 +1,30 @@
 @import "tailwindcss";
 
-/* Brand palette carried over from the concept drafts. */
+/*
+ * Light theme. Token names are kept from the original dark build so the
+ * existing utility classes keep working, but the VALUES are now the light
+ * palette:
+ *   navy  -> page background (white)
+ *   navy2 -> panels / cards (very light grey)
+ *   bone  -> body text (black)
+ *   gold  -> accent (orange)
+ * The grey menu bar (#4d4d4f) is applied directly in Header.tsx.
+ */
 @theme {
-  --color-gold: #c8a96e;
-  --color-navy: #06090f;
-  --color-navy2: #0d1525;
-  --color-navy3: #111b2e;
-  --color-bone: #e8e4da;
+  --color-gold: #f7941e; /* accent orange */
+  --color-navy: #ffffff; /* page background */
+  --color-navy2: #f4f4f5; /* panels / cards */
+  --color-navy3: #e8e8ea;
+  --color-bone: #000000; /* body text */
+  --color-bar: #4d4d4f; /* menu bar grey */
 
-  --font-display: var(--font-syne), sans-serif;
-  --font-sans: var(--font-inter), sans-serif;
+  --font-display: Arial, Helvetica, sans-serif;
+  --font-sans: Arial, Helvetica, sans-serif;
 }
 
 :root {
-  --muted: rgb(232 228 218 / 0.5);
-  --hairline: rgb(255 255 255 / 0.07);
+  --muted: rgb(0 0 0 / 0.55);
+  --hairline: rgb(0 0 0 / 0.14);
 }
 
 @layer base {
@@ -33,13 +43,13 @@
   h2,
   h3 {
     font-family: var(--font-display);
-    font-weight: 800;
-    letter-spacing: -0.02em;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
 
   ::selection {
     background: var(--color-gold);
-    color: var(--color-navy);
+    color: #ffffff;
   }
 
   :focus-visible {

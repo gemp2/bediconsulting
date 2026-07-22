@@ -30,7 +30,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden border-b hairline">
         <div
           aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_120%,rgba(200,169,110,0.16),transparent_60%)]"
+          className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_120%,rgba(247,148,30,0.12),transparent_60%)]"
         />
         <div className="relative mx-auto max-w-7xl px-6 py-28 md:py-40">
           <p className="eyebrow">{site.eyebrow}</p>

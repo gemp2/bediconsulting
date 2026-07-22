@@ -68,6 +68,16 @@ The deck references an "Est. 2009" badge, but the project record starts in
 Only `a.bedi@bediconsulting.com` exists. Needed: full postal address, phone,
 and the LinkedIn company page URL.
 
+### LinkedIn feed — `src/data/linkedin.ts`
+The home page ends with a LinkedIn feed carousel (deck block 5), currently
+showing three placeholder posts. To make it real:
+1. Set `companyUrl` to the actual BEDI LinkedIn company page.
+2. Either fill `posts` with real updates by hand, **or** decide you want a
+   live auto-updating feed — that needs a third-party widget (EmbedSocial,
+   SociableKit or Taggbox). Those load an external script and set cookies, so
+   they'd also need a mention in the cookie/privacy notice. Tell me which and
+   I'll wire it in.
+
 ### Project datasheets
 The drafts had four "Download Datasheet" buttons all pointing at `#` — no PDFs
 were ever produced. The site now shows a "request the datasheet" CTA instead of

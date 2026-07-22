@@ -12,6 +12,7 @@ import { services } from "@/data/services";
 import { featuredProjects, countryCount, projects } from "@/data/projects";
 import { Marquee } from "@/components/Marquee";
 import { ProjectExplorer } from "@/components/ProjectExplorer";
+import { LinkedInFeed } from "@/components/LinkedInFeed";
 import {
   Button,
   Card,
@@ -216,6 +217,14 @@ export default function HomePage() {
               View our projects
             </Button>
           </div>
+        </div>
+      </Section>
+
+      {/* BLOCK 5 (cont.) — LinkedIn feed */}
+      <Section className="border-t hairline">
+        <SectionHeading eyebrow="From our LinkedIn" title="Latest from BEDI." />
+        <div className="mt-12">
+          <LinkedInFeed />
         </div>
       </Section>
     </>

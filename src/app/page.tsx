@@ -80,8 +80,8 @@ export default function HomePage() {
       <Section className="border-b hairline">
         <SectionHeading
           eyebrow="What we do"
-          title="Our disciplines. One focus: underground."
-          body="From first ground investigation to post-construction monitoring — we cover every technical aspect of underground construction and asset assessment."
+          title="From ground investigation to construction support."
+          body="Concept design, numerical analysis and site support across tunnels, shafts, deep excavations and existing-asset assessment."
         />
 
         <ul className="mt-14 divide-y divide-black/5 border-y hairline">
@@ -111,10 +111,7 @@ export default function HomePage() {
 
       {/* What clients say */}
       <Section className="border-b hairline">
-        <SectionHeading
-          eyebrow="What clients say"
-          title="Trusted on the hardest jobs."
-        />
+        <SectionHeading eyebrow="References" title="Selected references." />
         <div className="mt-16 grid gap-x-12 gap-y-14 lg:grid-cols-3">
           {testimonials.map((t) => (
             <figure key={t.name} className="flex flex-col">
@@ -152,11 +149,11 @@ export default function HomePage() {
       <Section>
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl leading-tight md:text-5xl">
-            The ground is complex. We are ready for it.
+            Discuss a project.
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed muted">
-            Tell us about your project. A senior engineer will respond — not a
-            sales team.
+            Send the ground conditions, constraints and design stage. A senior
+            engineer will respond.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button href="/contact">Start a conversation →</Button>

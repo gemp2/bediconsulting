@@ -64,19 +64,18 @@ export default function AboutPage() {
           <div>
             <p className="eyebrow">Who we are</p>
             <h1 className="mt-4 text-4xl leading-tight md:text-5xl">
-              A senior-led practice for the hardest ground.
+              Specialist tunnelling and geotechnical practice.
             </h1>
             <p className="mt-7 text-base leading-relaxed muted">
-              Bedi Consulting is a specialist tunnelling and geotechnical
-              engineering practice. We work on projects where the ground is
-              uncertain, the tolerances are unforgiving and the consequences of
-              getting it wrong are measured in more than money.
+              Bedi Consulting provides tunnel and geotechnical engineering from
+              design conception through construction — soft-ground and mixed-face
+              tunnels, shafts and deep excavations, mostly in constrained urban
+              settings.
             </p>
             <p className="mt-5 text-base leading-relaxed muted">
-              Every design is led by a senior engineer who stays with the project
-              through construction — because underground work rarely matches the
-              ground investigation, and the response has to come from someone
-              who understands the original design intent.
+              Design is senior-led and continues on site: excavation and support
+              are revised against face mapping and monitoring data as the ground
+              is exposed.
             </p>
           </div>
 
@@ -97,7 +96,7 @@ export default function AboutPage() {
 
       {/* Values */}
       <Section className="border-b hairline">
-        <SectionHeading eyebrow="How we work" title="What we hold to." />
+        <SectionHeading eyebrow="How we work" title="Method." />
         <div className="mt-14 grid gap-5 md:grid-cols-3">
           {values.map((v) => (
             <Card key={v.title}>
@@ -110,12 +109,7 @@ export default function AboutPage() {
 
       {/* BLOCK 2 — The team */}
       <Section className="border-b hairline">
-        <SectionHeading eyebrow="The team" title="The people behind the work." />
-
-        <p className="mt-6 max-w-2xl text-sm leading-relaxed muted">
-          Photographs and individual LinkedIn links are still being added — edit
-          them in <code className="text-bone/80">src/data/team.ts</code>.
-        </p>
+        <SectionHeading eyebrow="The team" title="Engineers." />
 
         <ul className="mt-16 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {team.map((member, i) => (
@@ -142,11 +136,7 @@ export default function AboutPage() {
 
       {/* BLOCK 3 — Our story */}
       <Section className="border-b hairline">
-        <SectionHeading
-          eyebrow="Our story"
-          title="Two decades underground."
-          body="Milestones drawn from the project record. Entries marked as draft need confirmation."
-        />
+        <SectionHeading eyebrow="Track record" title="Selected milestones." />
 
         <ol className="mt-14 border-l hairline">
           {milestones.map((m) => (
@@ -174,14 +164,14 @@ export default function AboutPage() {
       <Section>
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl leading-tight md:text-4xl">
-            Working on something difficult?
+            Discuss a project.
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed muted">
-            Tell us about the ground conditions and the constraints. A senior
-            engineer will read it.
+            Send the ground conditions, constraints and design stage. A senior
+            engineer will respond.
           </p>
           <div className="mt-9 flex justify-center">
-            <Button href="/contact">Get in touch →</Button>
+            <Button href="/contact">Contact →</Button>
           </div>
         </div>
       </Section>

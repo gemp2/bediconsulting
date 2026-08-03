@@ -56,7 +56,7 @@ export function ContactForm() {
           name="message"
           rows={6}
           required
-          placeholder="Ground conditions, constraints, programme — whatever matters most."
+          placeholder="Ground conditions, constraints, programme and design stage."
           className="mt-2 w-full border hairline bg-navy2/60 px-4 py-3 text-sm text-bone placeholder:text-bone/25 focus:border-gold/50 focus:outline-none"
         />
       </div>

@@ -18,9 +18,9 @@ export default function ToolsPage() {
           Free tools for tunnel &amp; geotechnical engineers.
         </h1>
         <p className="mt-7 max-w-2xl text-base leading-relaxed muted">
-          Small, useful, browser-based tools we build for our own work and share
-          for free — no sign-up, no cost. Made for engineers, geologists and
-          students working underground.
+          Browser-based calculators we use in our own work, shared free — no
+          sign-up. For engineers, engineering geologists and students working
+          underground.
         </p>
       </Section>
 
@@ -55,11 +55,11 @@ export default function ToolsPage() {
       <Section>
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl leading-tight md:text-4xl">
-            Need something more involved?
+            Beyond a quick calculation?
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed muted">
-            These are quick helpers. For real project work — design, analysis,
-            monitoring — talk to our engineers.
+            These are quick helpers. For design, analysis or monitoring on a live
+            project, contact our engineers.
           </p>
           <div className="mt-9 flex justify-center">
             <a

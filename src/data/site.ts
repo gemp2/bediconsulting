@@ -13,11 +13,11 @@ export const site = {
   url: "https://bediconsulting.com",
   tagline: "Specialist Tunnelling & Geotechnical Engineers",
   eyebrow: "Geotechnical & Tunnel Engineering",
-  slogan: "We work where the ground fights back.",
-  // The word rendered in gold within `slogan`.
-  sloganAccent: "fights back.",
+  slogan: "Tunnel and geotechnical engineering for difficult ground.",
+  // The phrase rendered in gold within `slogan`.
+  sloganAccent: "difficult ground.",
   description:
-    "Bedi Consulting delivers specialist tunnel and geotechnical engineering for the world's most complex underground projects — where uncertainty is high, margin is low, and experience is everything.",
+    "SCL/NATM and TBM tunnels, shafts and deep excavations, ground investigation, instrumentation and digital condition assessment — from design conception to construction support.",
   email: "a.bedi@bediconsulting.com",
   office: "London Victoria, UK",
 } as const;
@@ -37,10 +37,10 @@ export const nav = [
 ] as const;
 
 export const stats = [
-  { value: "20+", label: "Years of experience" },
-  { value: "26", label: "Projects delivered" },
-  { value: "8", label: "Countries worked in" },
-  { value: "100%", label: "Senior-led delivery" },
+  { value: "20+", label: "Years in tunnelling" },
+  { value: "26", label: "Projects" },
+  { value: "8", label: "Countries" },
+  { value: "100%", label: "Senior-led design" },
 ] as const;
 
 /** Capability labels for the marquee. Two of these have no service card yet. */
@@ -56,35 +56,35 @@ export const capabilityTicker = [
 ] as const;
 
 export const challengeIntro = {
-  eyebrow: "The underground challenge",
-  heading: "Every tunnel is a unique problem. We have seen them all.",
-  body: "Below the surface, no two sites are alike. Ground conditions change metre by metre. Water finds every weakness. Adjacent structures react in ways no model fully predicts. This is where deep experience matters — not just calculation.",
+  eyebrow: "Ground conditions",
+  heading: "Design is governed by the ground, not by templates.",
+  body: "Mixed-face geology, pore-pressure regime and adjacent assets change the governing case along a drive. Each is addressed explicitly, from ground investigation through construction.",
 } as const;
 
 export const challenges = [
   {
-    title: "Complex & mixed-face geology",
-    body: "Transitions between rock, clay, gravel and fill within a single tunnel drive demand continuous design adaptation. A prescriptive design fails here — only experience and real-time engineering judgement keeps the work safe.",
+    title: "Mixed-face geology",
+    body: "Rock–soil transitions within a single drive: excavation sequence, face support and lining revised to the observed ground.",
   },
   {
-    title: "High groundwater pressure",
-    body: "Water under pressure is the most common cause of tunnel incidents. We design for the real hydrogeological regime — not the assumed one — combining permeability testing, pore pressure monitoring and drained/undrained design.",
+    title: "High pore pressure",
+    body: "Pore-pressure regime derived from permeability and piezometric data; drained/undrained design, depressurisation and grouting specified accordingly.",
   },
   {
-    title: "Adjacent structures & live infrastructure",
-    body: "Tunnelling beneath occupied buildings, live Tube lines or heritage assets leaves no room for error. We manage settlement risk from ground investigation through to greenfield reoccupation, with instrumentation thresholds set at the right level.",
+    title: "Adjacent structures & live assets",
+    body: "Volume-loss and settlement prediction, building damage assessment and instrumentation trigger levels beneath buildings and operating railways.",
   },
   {
-    title: "Buried utilities & obstructions",
-    body: "Victorian sewers, underpinned foundations, abandoned wells and unknown services create hazards that standard utility records miss entirely. We plan for what is not on the drawings.",
+    title: "Obstructions & buried services",
+    body: "Interpretation beyond record drawings — abandoned foundations, wells, legacy sewers — carried into the excavation and support sequence.",
   },
   {
-    title: "Heritage tunnels & existing assets",
-    body: "Ageing tunnel linings, historic brick arches and century-old structures require assessment without invasive works. Our LiDAR and point cloud digital assessment delivers a complete structural picture — no shutdowns, no drilling.",
+    title: "Heritage & existing linings",
+    body: "Non-invasive assessment of masonry and legacy linings by LiDAR and point cloud, with quantified defect mapping — no possessions, no drilling.",
   },
   {
-    title: "Construction in operational environments",
-    body: "Working inside live metro stations, under operating motorways or within operational ports demands tight sequencing, real-time monitoring and absolute buildability of every design decision. We stay on site to ensure it.",
+    title: "Operational environments",
+    body: "Sequencing, monitoring and buildability for works within live stations, ports and highways, verified against face and instrumentation data on site.",
   },
 ] as const;
 

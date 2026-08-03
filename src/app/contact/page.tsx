@@ -6,7 +6,7 @@ import { DraftBadge, Section } from "@/components/ui";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Tell us about your project. A senior engineer will respond — not a sales team.",
+    "Project enquiries for tunnel and geotechnical engineering. A senior engineer reviews every enquiry and replies directly.",
 };
 
 export default function ContactPage() {
@@ -16,11 +16,11 @@ export default function ContactPage() {
         <div>
           <p className="eyebrow">Contact us</p>
           <h1 className="mt-4 text-4xl leading-tight md:text-5xl">
-            Tell us about the ground.
+            Project enquiries.
           </h1>
           <p className="mt-7 max-w-lg text-base leading-relaxed muted">
-            A senior engineer reads every enquiry and replies directly. No sales
-            team, no qualification call.
+            A senior engineer reviews every enquiry and replies directly. Include
+            ground conditions, constraints and the design stage where you can.
           </p>
 
           <dl className="mt-12 space-y-8">

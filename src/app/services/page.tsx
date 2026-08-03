@@ -21,12 +21,12 @@ export default function ServicesPage() {
       <Section className="border-b hairline">
         <p className="eyebrow">What we do</p>
         <h1 className="mt-4 max-w-3xl text-4xl leading-tight md:text-5xl">
-          Our disciplines. One focus: underground.
+          Tunnel &amp; geotechnical services.
         </h1>
         <p className="mt-7 max-w-2xl text-base leading-relaxed muted">
-          From first ground investigation to post-construction monitoring — we
-          cover every technical aspect of underground construction and asset
-          assessment.
+          Design conception through construction: sprayed concrete and TBM
+          tunnels, shafts and deep excavations, ground investigation,
+          instrumentation and digital condition assessment.
         </p>
       </Section>
 
@@ -109,9 +109,9 @@ export default function ServicesPage() {
       {/* BLOCK 2 — Our approach */}
       <Section className="border-b hairline">
         <SectionHeading
-          eyebrow="Our approach"
-          title="Understand. Design. Stay. Verify."
-          body="A tunnel design that is issued and forgotten is a liability. Ours is a continuous engagement from ground investigation through to close-out."
+          eyebrow="Method"
+          title="Ground model to close-out."
+          body="A continuous engagement from the design ground model through construction support and verification — not a design issued and forgotten."
         />
 
         <ol className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -130,11 +130,11 @@ export default function ServicesPage() {
       <Section>
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl leading-tight md:text-4xl">
-            Not sure which discipline you need?
+            Scoping a project?
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed muted">
-            Most projects need several. Describe the problem and we will tell you
-            what it actually requires.
+            Most projects span several of these disciplines. Send the ground and
+            constraints and we will define the scope.
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-4">
             <Button href="/contact">Talk to an engineer →</Button>

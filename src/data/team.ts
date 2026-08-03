@@ -125,12 +125,6 @@ export const milestones: Milestone[] = [
     body: "Design lead and construction support on a £741M upgrade of London's busiest Underground station, running through to 2016.",
   },
   {
-    year: "2009",
-    title: "FOUNDING_YEAR_TO_CONFIRM",
-    body: "The deck references an 'Est. 2009' badge, but the project record starts in 2002. Confirm the correct founding date.",
-    placeholder: true,
-  },
-  {
     year: "2014",
     title: "ITA Tunnelling Project of the Year",
     body: "Victoria Station Upgrade recognised internationally, followed by the BGA Fleming Award in 2015 and Specialist Tunnelling Project of the Year in 2016.",
@@ -142,18 +136,18 @@ export const milestones: Milestone[] = [
   },
 ];
 
-/** Company values — from the deck, slide 13 ("company values"). Needs sign-off. */
+/** How the practice works — method statements, not slogans. */
 export const values = [
   {
-    title: "Senior-led, always",
-    body: "The engineer who designs your tunnel is the engineer who stands at the face. No handover to a junior team.",
+    title: "Senior-led design",
+    body: "The engineer responsible for the design remains involved through construction.",
   },
   {
-    title: "Ground first, model second",
-    body: "We design for the conditions that exist, not the ones the ground investigation assumed.",
+    title: "Observational method",
+    body: "Design assumptions are checked against face and monitoring data and revised where the ground differs from prediction.",
   },
   {
-    title: "Present through construction",
-    body: "A design is not finished when it is issued. We stay on site and re-design when the ground says otherwise.",
+    title: "Buildable design",
+    body: "Support and sequence are specified to the contractor's plant and methods, not in isolation.",
   },
 ];

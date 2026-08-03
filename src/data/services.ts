@@ -25,7 +25,7 @@ export const services: Service[] = [
     name: "Mined Tunnels",
     body: "Sprayed concrete lining (SCL/NATM) design in soft ground, mixed face and rock — excavation sequence, face stability and temporary/permanent lining.",
     tags: ["SCL", "NATM", "Face stability", "Lining design"],
-    image: "/media/tunnel-portal.jpg",
+    image: "/media/services/mined-tunnels.jpg",
   },
   {
     slug: "mechanised-tunnels",
@@ -33,7 +33,7 @@ export const services: Service[] = [
     name: "Mechanised Tunnels",
     body: "TBM segmental lining and temporary works — EPB, slurry and compressed-air drives. Ring design, build tolerances and shaft interfaces.",
     tags: ["TBM", "Segmental lining", "EPB", "Slurry"],
-    image: "/media/tunnel-bore.jpg",
+    image: "/media/services/mechanised-tunnels.jpg",
   },
   {
     slug: "cut-and-cover-shafts",
@@ -41,7 +41,7 @@ export const services: Service[] = [
     name: "Cut & Cover / Shafts",
     body: "Piled and diaphragm walls, braced and strutted excavations, shaft design. Ground–structure interaction in constrained urban settings.",
     tags: ["Secant piles", "Braced excavation", "Shafts", "Retaining walls"],
-    image: "/media/tangmere-caissons.jpg",
+    image: "/media/services/cut-and-cover-shafts.jpg",
   },
   {
     slug: "geotechnical-engineering",
@@ -49,7 +49,7 @@ export const services: Service[] = [
     name: "Geotechnical Engineering",
     body: "Ground investigation, interpretation and testing; finite-element analysis; parameter derivation and geotechnical design reports.",
     tags: ["Ground investigation", "FE analysis", "Testing", "GDR"],
-    image: "/media/tunnel-portal.jpg",
+    image: "/media/services/geotechnical-engineering.jpg",
   },
   {
     slug: "instrumentation-monitoring",
@@ -57,7 +57,7 @@ export const services: Service[] = [
     name: "Instrumentation & Monitoring",
     body: "Monitoring scheme design, trigger-level setting and engineering interpretation of instrumentation and settlement data.",
     tags: ["Trigger levels", "Settlement", "Interpretation"],
-    image: "/media/tunnel-bore.jpg",
+    image: "/media/services/instrumentation-monitoring.jpg",
   },
   {
     slug: "digital-assessment",
@@ -65,9 +65,7 @@ export const services: Service[] = [
     name: "Digital Assessment",
     body: "LiDAR scanning, point-cloud processing and photogrammetry for non-invasive condition assessment of existing tunnels and heritage assets.",
     tags: ["LiDAR", "Point cloud", "Photogrammetry", "Non-invasive"],
-    image: "/media/digital-survey.jpg",
-    video: "/media/field-survey.mp4",
-    poster: "/media/digital-survey.jpg",
+    image: "/media/services/digital-assessment.png",
   },
 ];
 

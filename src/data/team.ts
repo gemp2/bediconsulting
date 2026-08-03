@@ -21,6 +21,7 @@ export const team: TeamMember[] = [
     role: "Director",
     location: "London",
     linkedin: "",
+    photo: "/media/headshots/anmol-bedi.jpeg",
   },
   {
     name: "Raveen Bains",
@@ -33,42 +34,49 @@ export const team: TeamMember[] = [
     role: "Principal Engineer",
     location: "London",
     linkedin: "",
+    photo: "/media/headshots/marco-invernici.jpeg",
   },
   {
     name: "David Brock",
     role: "Principal Engineer",
     location: "Cyprus",
     linkedin: "",
+    photo: "/media/headshots/david-brock.jpeg",
   },
   {
     name: "Sagar Sheth",
     role: "Principal Engineer",
     location: "London",
     linkedin: "",
+    photo: "/media/headshots/sagar-sheth.jpeg",
   },
   {
     name: "Ramnath Arumugam",
     role: "Senior Engineer",
     location: "India",
     linkedin: "",
+    photo: "/media/headshots/ramnath-arumugam.jpeg",
   },
   {
     name: "Dr. Rakshith Shetty",
     role: "Senior Engineer",
     location: "India",
     linkedin: "",
+    photo: "/media/headshots/rakshith-shetty.jpeg",
   },
   {
     name: "Rasmus Bjorkman",
     role: "Senior Engineer",
     location: "Australia",
     linkedin: "",
+    photo: "/media/headshots/rasmus-bjorkman.jpeg",
   },
   {
     name: "William Fletcher",
     role: "Engineer",
     location: "London",
     linkedin: "",
+    photo: "/media/headshots/william-fletcher.jpeg",
   },
   {
     name: "Roberta Marini",
@@ -81,12 +89,14 @@ export const team: TeamMember[] = [
     role: "Engineer",
     location: "India",
     linkedin: "",
+    photo: "/media/headshots/praveen-huded.jpeg",
   },
   {
     name: "Gaurav Mamgain",
     role: "Engineering Geologist",
     location: "India",
     linkedin: "",
+    photo: "/media/headshots/gaurav-mamgain.jpeg",
   },
   {
     name: "John Leane",
@@ -99,6 +109,7 @@ export const team: TeamMember[] = [
     role: "Graduate Engineer",
     location: "India",
     linkedin: "",
+    photo: "/media/headshots/harshal-verma.jpeg",
   },
 ];
 

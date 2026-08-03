@@ -28,6 +28,8 @@ export function ProjectMap({
   // without needing to tear down and rebuild every marker on each render.
   const onSelectRef = useRef(onSelect);
   onSelectRef.current = onSelect;
+  // Only one popup open at a time.
+  const openPopup = useRef<import("maplibre-gl").Popup | null>(null);
 
   useEffect(() => {
     if (!container.current || map.current) return;
@@ -99,7 +101,12 @@ export function ProjectMap({
 
       el.addEventListener("click", (e) => {
         e.stopPropagation();
+        // Close any other open popup first.
+        if (openPopup.current && openPopup.current !== popup) {
+          openPopup.current.remove();
+        }
         marker.togglePopup();
+        openPopup.current = popup.isOpen() ? popup : null;
         onSelectRef.current?.(project);
       });
 

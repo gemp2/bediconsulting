@@ -41,6 +41,7 @@ export const services: Service[] = [
     name: "Cut & Cover / Shafts",
     body: "Piled and diaphragm walls, braced and strutted excavations, shaft design. Ground–structure interaction in constrained urban settings.",
     tags: ["Secant piles", "Braced excavation", "Shafts", "Retaining walls"],
+    image: "/media/tangmere-caissons.jpg",
   },
   {
     slug: "geotechnical-engineering",
@@ -48,6 +49,7 @@ export const services: Service[] = [
     name: "Geotechnical Engineering",
     body: "Ground investigation, interpretation and testing; finite-element analysis; parameter derivation and geotechnical design reports.",
     tags: ["Ground investigation", "FE analysis", "Testing", "GDR"],
+    image: "/media/tunnel-portal.jpg",
   },
   {
     slug: "instrumentation-monitoring",
@@ -55,6 +57,7 @@ export const services: Service[] = [
     name: "Instrumentation & Monitoring",
     body: "Monitoring scheme design, trigger-level setting and engineering interpretation of instrumentation and settlement data.",
     tags: ["Trigger levels", "Settlement", "Interpretation"],
+    image: "/media/tunnel-bore.jpg",
   },
   {
     slug: "digital-assessment",
@@ -62,6 +65,7 @@ export const services: Service[] = [
     name: "Digital Assessment",
     body: "LiDAR scanning, point-cloud processing and photogrammetry for non-invasive condition assessment of existing tunnels and heritage assets.",
     tags: ["LiDAR", "Point cloud", "Photogrammetry", "Non-invasive"],
+    image: "/media/digital-survey.jpg",
     video: "/media/field-survey.mp4",
     poster: "/media/digital-survey.jpg",
   },

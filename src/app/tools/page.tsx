@@ -18,7 +18,7 @@ export default function ToolsPage() {
           Free tools for tunnel &amp; geotechnical engineers.
         </h1>
         <p className="mt-7 max-w-2xl text-base leading-relaxed muted">
-          Browser-based calculators we use in our own work, shared free — no
+          Browser-based calculators used in our own work, shared free — no
           sign-up. For engineers, engineering geologists and students working
           underground.
         </p>

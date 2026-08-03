@@ -5,7 +5,6 @@ import {
   Button,
   Card,
   DraftBadge,
-  ImagePlaceholder,
   Section,
   SectionHeading,
   Stat,
@@ -78,9 +77,11 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <ImagePlaceholder
-            label="Team photograph needed — see CONTENT-TODO.md"
-            aspect="aspect-[4/3]"
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/media/tunnel-portal.jpg"
+            alt="Bedi Consulting engineers on site at a railway tunnel portal"
+            className="aspect-[4/3] w-full object-cover"
           />
         </div>
 

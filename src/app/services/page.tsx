@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { services, approach } from "@/data/services";
-import { Button, ImagePlaceholder, Section, SectionHeading } from "@/components/ui";
+import { challengeIntro, challenges } from "@/data/site";
+import {
+  Button,
+  Card,
+  ImagePlaceholder,
+  Section,
+  SectionHeading,
+} from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -14,13 +21,30 @@ export default function ServicesPage() {
       <Section className="border-b hairline">
         <p className="eyebrow">What we do</p>
         <h1 className="mt-4 max-w-3xl text-4xl leading-tight md:text-5xl">
-          Six disciplines. One focus: underground.
+          Our disciplines. One focus: underground.
         </h1>
         <p className="mt-7 max-w-2xl text-base leading-relaxed muted">
           From first ground investigation to post-construction monitoring — we
           cover every technical aspect of underground construction and asset
           assessment.
         </p>
+      </Section>
+
+      {/* Intro — the underground challenge */}
+      <Section className="border-b hairline">
+        <SectionHeading
+          eyebrow={challengeIntro.eyebrow}
+          title={challengeIntro.heading}
+          body={challengeIntro.body}
+        />
+        <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {challenges.map((c) => (
+            <Card key={c.title}>
+              <h3 className="text-base leading-snug text-bone">{c.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed muted">{c.body}</p>
+            </Card>
+          ))}
+        </div>
       </Section>
 
       {/* BLOCK 1 — Our services */}
@@ -42,21 +66,14 @@ export default function ServicesPage() {
                   <span className="font-display text-sm font-semibold text-gold/70">
                     {s.num}
                   </span>
-                  <h2 className="flex items-center gap-3 text-xl">
-                    {s.name}
-                    {s.isNew && (
-                      <span className="border border-gold/40 px-2 py-0.5 text-[9px] uppercase tracking-[0.18em] text-gold">
-                        New
-                      </span>
-                    )}
-                  </h2>
+                  <h2 className="text-xl">{s.name}</h2>
                 </div>
                 <p className="mt-4 text-sm leading-relaxed muted">{s.body}</p>
                 <ul className="mt-6 flex flex-wrap gap-2">
                   {s.tags.map((tag) => (
                     <li
                       key={tag}
-                      className="border border-white/10 px-3 py-1 text-[11px] text-bone/55"
+                      className="border border-black/10 px-3 py-1 text-[11px] text-bone/55"
                     >
                       {tag}
                     </li>

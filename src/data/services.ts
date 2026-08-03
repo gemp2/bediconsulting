@@ -4,7 +4,6 @@ export type Service = {
   name: string;
   body: string;
   tags: string[];
-  isNew?: boolean;
 };
 
 /**
@@ -56,7 +55,6 @@ export const services: Service[] = [
     name: "Digital Assessment",
     body: "LiDAR scanning, point cloud processing and remote sensing for non-invasive structural health and material assessment of existing tunnels and heritage assets.",
     tags: ["LiDAR", "Point cloud", "UAV", "Non-invasive"],
-    isNew: true,
   },
 ];
 

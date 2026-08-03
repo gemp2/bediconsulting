@@ -1,26 +1,20 @@
 import Link from "next/link";
-import {
-  site,
-  stats,
-  capabilityTicker,
-  challengeIntro,
-  challenges,
-  testimonials,
-  clients,
-} from "@/data/site";
+import { site, stats, capabilityTicker, testimonials, clients } from "@/data/site";
 import { services } from "@/data/services";
-import { featuredProjects, countryCount, projects } from "@/data/projects";
+import { countryCount, projects } from "@/data/projects";
 import { Marquee } from "@/components/Marquee";
 import { ProjectExplorer } from "@/components/ProjectExplorer";
 import { LinkedInWidget } from "@/components/LinkedInWidget";
-import {
-  Button,
-  Card,
-  ImagePlaceholder,
-  Section,
-  SectionHeading,
-  Stat,
-} from "@/components/ui";
+import { Button, Section, SectionHeading, Stat } from "@/components/ui";
+
+function initials(name: string) {
+  return name
+    .replace(/^Dr\.?\s+/, "")
+    .split(/\s+/)
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join("");
+}
 
 export default function HomePage() {
   const [before, after] = site.slogan.split(site.sloganAccent);
@@ -66,6 +60,8 @@ export default function HomePage() {
         </div>
       </section>
 
+      <Marquee items={capabilityTicker} />
+
       {/* BLOCK 2 — Numbers + clients */}
       <Section className="border-b hairline">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
@@ -86,52 +82,38 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <Marquee items={capabilityTicker} />
-
-      {/* The underground challenge */}
-      <Section className="border-b hairline">
+      {/* Map — where we work */}
+      <Section id="where-we-are" className="border-b hairline">
         <SectionHeading
-          eyebrow={challengeIntro.eyebrow}
-          title={challengeIntro.heading}
-          body={challengeIntro.body}
+          eyebrow="Where we work"
+          title={`${projects.length} projects across ${countryCount} countries.`}
+          body="Filter by discipline, region or period — or click any pin to see the detail."
         />
-        <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {challenges.map((c) => (
-            <Card key={c.title}>
-              <h3 className="text-base leading-snug text-bone">{c.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed muted">{c.body}</p>
-            </Card>
-          ))}
+        <div className="mt-12">
+          <ProjectExplorer />
         </div>
       </Section>
 
-      {/* BLOCK 3 — Services */}
+      {/* What we do — services */}
       <Section className="border-b hairline">
         <SectionHeading
           eyebrow="What we do"
-          title="Six disciplines. One focus: underground."
+          title="Our disciplines. One focus: underground."
           body="From first ground investigation to post-construction monitoring — we cover every technical aspect of underground construction and asset assessment."
         />
 
-        <ul className="mt-14 divide-y divide-white/5 border-y hairline">
+        <ul className="mt-14 divide-y divide-black/5 border-y hairline">
           {services.map((s) => (
             <li key={s.slug}>
               <Link
                 href={`/services#${s.slug}`}
-                className="group grid gap-4 py-8 transition-colors hover:bg-gold/[0.03] md:grid-cols-[80px_1fr_auto] md:items-baseline md:gap-8"
+                className="group grid gap-4 py-8 transition-colors hover:bg-gold/[0.04] md:grid-cols-[80px_1fr_auto] md:items-baseline md:gap-8"
               >
                 <span className="font-display text-sm font-semibold text-gold/70">
                   {s.num}
                 </span>
                 <div>
-                  <h3 className="flex items-center gap-3 text-xl">
-                    {s.name}
-                    {s.isNew && (
-                      <span className="border border-gold/40 px-2 py-0.5 text-[9px] uppercase tracking-[0.18em] text-gold">
-                        New
-                      </span>
-                    )}
-                  </h3>
+                  <h3 className="text-xl">{s.name}</h3>
                   <p className="mt-2 max-w-2xl text-sm leading-relaxed muted">
                     {s.body}
                   </p>
@@ -145,41 +127,6 @@ export default function HomePage() {
         </ul>
       </Section>
 
-      {/* Featured case studies */}
-      <Section className="border-b hairline">
-        <SectionHeading
-          eyebrow="Selected work"
-          title="Three projects, three different problems."
-        />
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
-          {featuredProjects.map((p) => (
-            <Link
-              key={p.id}
-              href={`/projects/${p.slug}`}
-              className="group flex flex-col border hairline bg-navy2/40 transition-colors hover:border-gold/30"
-            >
-              <ImagePlaceholder
-                label={`${p.name} — photography needed`}
-                aspect="aspect-[16/10]"
-                className="border-0 border-b border-dashed"
-              />
-              <div className="flex flex-1 flex-col p-6">
-                <span className="text-[10px] uppercase tracking-[0.18em] text-gold">
-                  {p.caseStudy!.category}
-                </span>
-                <h3 className="mt-3 text-lg leading-snug">{p.name}</h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed muted">
-                  {p.description}
-                </p>
-                <span className="mt-5 text-xs uppercase tracking-[0.14em] text-gold">
-                  Read case study →
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </Section>
-
       {/* In the field — real site media */}
       <Section className="border-b hairline">
         <SectionHeading
@@ -188,6 +135,7 @@ export default function HomePage() {
           body="Night possessions, heritage tunnels and live railway — our engineers on site, on the tools."
         />
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {/* eslint-disable @next/next/no-img-element */}
           <img
             src="/media/tunnel-portal.jpg"
             alt="Engineers at a masonry railway tunnel portal at dusk"
@@ -206,6 +154,7 @@ export default function HomePage() {
             className="aspect-[3/4] w-full object-cover"
             loading="lazy"
           />
+          {/* eslint-enable @next/next/no-img-element */}
           <video
             className="aspect-[3/4] w-full object-cover"
             controls
@@ -219,34 +168,38 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* BLOCK 4 — World map */}
-      <Section id="where-we-are" className="border-b hairline">
-        <SectionHeading
-          eyebrow="Where we work"
-          title={`${projects.length} projects across ${countryCount} countries.`}
-          body="Filter by discipline, region or period — or click any pin to see the detail."
-        />
-        <div className="mt-12">
-          <ProjectExplorer />
-        </div>
-      </Section>
-
-      {/* BLOCK 5 — Testimonials */}
+      {/* What clients say */}
       <Section className="border-b hairline">
-        <SectionHeading eyebrow="What clients say" title="In their words." />
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+        <SectionHeading
+          eyebrow="What clients say"
+          title="Trusted on the hardest jobs."
+        />
+        <div className="mt-16 grid gap-x-12 gap-y-14 lg:grid-cols-3">
           {testimonials.map((t) => (
-            <figure
-              key={t.name}
-              className="flex flex-col border hairline bg-navy2/40 p-7"
-            >
-              <blockquote className="flex-1 text-sm leading-relaxed text-bone/85">
-                &ldquo;{t.quote}&rdquo;
+            <figure key={t.name} className="flex flex-col">
+              <span
+                aria-hidden
+                className="font-display text-6xl leading-[0.6] text-gold"
+              >
+                &ldquo;
+              </span>
+              <blockquote className="mt-6 flex-1 text-lg leading-relaxed text-bone/90">
+                {t.quote}
               </blockquote>
-              <figcaption className="mt-6 border-t hairline pt-5">
-                <span className="block text-sm text-gold">{t.name}</span>
-                <span className="mt-1 block text-xs muted">
-                  {t.role}, {t.org}
+              <figcaption className="mt-8 flex items-center gap-4">
+                <span
+                  aria-hidden
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-navy2 text-xs font-semibold text-gold"
+                >
+                  {initials(t.name)}
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-sm font-semibold text-bone">
+                    {t.name}
+                  </span>
+                  <span className="block text-xs muted">
+                    {t.role}, {t.org}
+                  </span>
                 </span>
               </figcaption>
             </figure>
@@ -273,7 +226,7 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* BLOCK 5 (cont.) — LinkedIn feed */}
+      {/* LinkedIn feed */}
       <Section className="border-t hairline">
         <SectionHeading eyebrow="From our LinkedIn" title="Latest from BEDI." />
         <div className="mt-12">

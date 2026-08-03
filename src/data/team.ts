@@ -30,32 +30,32 @@ export const team: TeamMember[] = [
   {
     name: "Anmol Bedi",
     role: "Director",
-    location: "TBC",
+    location: "London",
     experience: "23 yrs",
   },
   {
     name: "Raveen Bains",
     role: "HR / Finance Lead Consultant",
-    location: "TBC",
+    location: "London",
   },
 
   // — Principal Engineers —
   {
     name: "Marco Invernici",
     role: "Principal Engineer",
-    location: "TBC",
+    location: "London",
     experience: "14 yrs",
   },
   {
     name: "David Brock",
     role: "Principal Engineer",
-    location: "TBC",
+    location: "Cyprus",
     experience: "14 yrs",
   },
   {
     name: "Sagar Sheth",
     role: "Principal Engineer",
-    location: "TBC",
+    location: "London",
     experience: "13 yrs",
   },
 
@@ -63,90 +63,57 @@ export const team: TeamMember[] = [
   {
     name: "Ramnath Arumugam",
     role: "Senior Engineer",
-    location: "TBC",
+    location: "India",
     experience: "10 yrs",
   },
   {
     name: "Dr. Rakshith Shetty",
     role: "Senior Engineer",
-    location: "TBC",
+    location: "India",
     experience: "10 yrs",
   },
   {
     name: "Rasmus Bjorkman",
     role: "Senior Engineer",
-    location: "TBC",
+    location: "Australia",
   },
 
   // — Engineers —
   {
     name: "William Fletcher",
     role: "Engineer",
-    location: "TBC",
+    location: "London",
     experience: "8 yrs",
   },
   {
     name: "Roberta Marini",
     role: "Digital Engineer / Geoscientist",
-    location: "TBC",
+    location: "London",
   },
   {
     name: "Dr. Praveen Huded",
     role: "Engineer",
-    location: "TBC",
+    location: "India",
   },
   {
     name: "Gaurav Mamgain",
     role: "Engineering Geologist",
-    location: "TBC",
+    location: "India",
   },
   {
     name: "John Leane",
     role: "CAD Technician (2D/3D)",
-    location: "TBC",
+    location: "London",
   },
 
   // — Graduate —
   {
     name: "Dr. Harshal Verma",
     role: "Graduate Engineer",
-    location: "TBC",
-  },
-
-  // — External support —
-  {
-    name: "Dr. Claus Wisser",
-    role: "Digital Engineer",
-    location: "TBC",
-    external: true,
-  },
-  {
-    name: "Paschalis",
-    role: "Digital Engineer",
-    location: "TBC",
-    external: true,
-  },
-
-  // — Open positions / helpers (unnamed in the chart) —
-  {
-    name: "Open position",
-    role: "Helper",
-    location: "Australia",
-    placeholder: true,
-  },
-  {
-    name: "Open position",
-    role: "Helper",
     location: "India",
-    placeholder: true,
   },
-  {
-    name: "Open position",
-    role: "Helper",
-    location: "London, UK",
-    placeholder: true,
-  },
-];
+
+ ];
 
 export type Milestone = {
   year: string;

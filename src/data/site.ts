@@ -44,7 +44,7 @@ export const nav = [
 
 export const stats = [
   { value: "20+", label: "Years in tunnelling" },
-  { value: "26", label: "Projects" },
+  { value: "26+", label: "Projects" },
   { value: "8", label: "Countries" },
   { value: "100%", label: "Senior-led design" },
 ] as const;

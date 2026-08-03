@@ -1,4 +1,4 @@
-import { site, capabilityTicker, stats } from "@/data/site";
+import { site, stats } from "@/data/site";
 import { projects, countryCount } from "@/data/projects";
 import { HeroVideo } from "@/components/HeroVideo";
 import { HomeMap } from "@/components/HomeMap";
@@ -35,19 +35,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* BLOCK 2 — Numbers + clients */}
+      {/* BLOCK 2 — Numbers */}
       <Section className="border-b hairline">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
           {stats.map((s) => (
             <Stat key={s.label} value={s.value} label={s.label} />
           ))}
-        </div>
-
-        <div className="mt-16">
-          <p className="eyebrow">Our Clients</p>
-          <div className="mt-8">
-            <LogoMarquee />
-          </div>
         </div>
       </Section>
 
@@ -74,20 +67,16 @@ export default function HomePage() {
           body="Concept design, numerical analysis and site support across tunnels, shafts, deep excavations and existing-asset assessment."
         />
 
-        {/* Full capability set (reused keywords) */}
-        <ul className="mt-8 flex flex-wrap gap-2">
-          {capabilityTicker.map((c) => (
-            <li
-              key={c}
-              className="border border-black/10 px-3 py-1 text-[11px] text-bone/55"
-            >
-              {c}
-            </li>
-          ))}
-        </ul>
-
         <div className="mt-14">
           <ServicesShowcase />
+        </div>
+      </Section>
+
+      {/* Clients — below services */}
+      <Section className="border-b hairline">
+        <p className="eyebrow">Our Clients</p>
+        <div className="mt-8">
+          <LogoMarquee />
         </div>
       </Section>
 

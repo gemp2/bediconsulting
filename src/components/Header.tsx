@@ -20,12 +20,42 @@ export function Header() {
         <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
           {nav.map((item) => {
             const active = pathname.startsWith(item.href);
+            const base = "text-xs uppercase tracking-[0.14em] transition-colors";
+
+            // Contact Us — highlighted pill (primary CTA).
+            if (item.href === "/contact") {
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`${base} rounded-full border border-gold px-4 py-1.5 text-gold hover:bg-gold hover:text-[#4d4d4f]`}
+                >
+                  {item.label}
+                </Link>
+              );
+            }
+
+            // Tools — distinct colour to set the free tools apart.
+            if (item.href === "/tools") {
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`${base} font-semibold text-[#5eb3f5] hover:text-white`}
+                >
+                  {item.label}
+                </Link>
+              );
+            }
+
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`text-xs uppercase tracking-[0.14em] transition-colors hover:text-gold ${
+                className={`${base} hover:text-gold ${
                   active ? "text-gold" : "text-white/80"
                 }`}
               >
@@ -57,7 +87,13 @@ export function Header() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="block border-b border-white/15 px-6 py-4 text-xs uppercase tracking-[0.14em] text-white/80"
+              className={`block border-b border-white/15 px-6 py-4 text-xs uppercase tracking-[0.14em] ${
+                item.href === "/tools"
+                  ? "font-semibold text-[#5eb3f5]"
+                  : item.href === "/contact"
+                    ? "text-gold"
+                    : "text-white/80"
+              }`}
             >
               {item.label}
             </Link>

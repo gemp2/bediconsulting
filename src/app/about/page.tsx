@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { team, milestones, values } from "@/data/team";
+import { team, milestones, values, type TeamMember } from "@/data/team";
 import { stats } from "@/data/site";
 import {
   Button,
@@ -10,6 +10,42 @@ import {
   SectionHeading,
   Stat,
 } from "@/components/ui";
+
+/** Initials avatar; swaps to a photo once `member.photo` is set. */
+function Avatar({ member }: { member: TeamMember }) {
+  const initials = member.placeholder
+    ? "?"
+    : member.name
+        .replace(/^Dr\.?\s+/, "")
+        .split(/\s+/)
+        .map((w) => w[0])
+        .slice(0, 2)
+        .join("");
+
+  if (member.photo) {
+    // eslint-disable-next-line @next/next/no-img-element
+    return (
+      <img
+        src={member.photo}
+        alt={member.name}
+        className="h-14 w-14 shrink-0 rounded-full object-cover"
+      />
+    );
+  }
+
+  return (
+    <span
+      aria-hidden
+      className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-sm ${
+        member.placeholder
+          ? "border border-dashed border-black/25 text-black/40"
+          : "bg-navy2 text-bone/70"
+      }`}
+    >
+      {initials}
+    </span>
+  );
+}
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -70,41 +106,34 @@ export default function AboutPage() {
 
       {/* BLOCK 2 — The team */}
       <Section className="border-b hairline">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <SectionHeading
-            eyebrow="The team"
-            title="The engineers behind the work."
-          />
-          <DraftBadge label="Placeholder people" />
-        </div>
+        <SectionHeading eyebrow="The team" title="The people behind the work." />
 
         <p className="mt-6 max-w-2xl text-sm leading-relaxed muted">
-          Only Dr. Anmol Bedi is confirmed. The remaining cards are deliberate
-          placeholders — replace them with real names, roles, locations and
-          photographs before launch.
+          Draft from the current org chart. Locations, LinkedIn links and
+          photographs are still to be added — see CONTENT-TODO.md.
         </p>
 
-        <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {team.map((member) => (
-            <li key={member.name}>
-              <div className="flex h-full flex-col border hairline bg-navy2/40">
-                <ImagePlaceholder
-                  label={
-                    member.placeholder ? "Photo needed" : `${member.name} — photo needed`
-                  }
-                  aspect="aspect-square"
-                  className="border-0 border-b border-dashed"
-                />
-                <div className="flex flex-1 flex-col p-5">
-                  <h3 className="text-sm text-bone">{member.name}</h3>
-                  <p className="mt-1 text-xs text-gold">{member.role}</p>
-                  <p className="mt-2 flex-1 text-xs muted">{member.location}</p>
-                  {member.placeholder && (
-                    <span className="mt-4">
-                      <DraftBadge label="Draft" />
-                    </span>
-                  )}
-                </div>
+        <ul className="mt-16 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          {team.map((member, i) => (
+            <li key={`${member.name}-${i}`} className="flex items-start gap-4">
+              <Avatar member={member} />
+              <div className="min-w-0">
+                <h3 className="text-base text-bone">{member.name}</h3>
+                <p className="mt-0.5 text-sm text-gold">{member.role}</p>
+                <p className="mt-1.5 text-xs muted">
+                  {member.location}
+                  {member.experience ? ` · ${member.experience}` : ""}
+                </p>
+                {member.external && (
+                  <p className="mt-2 text-[10px] uppercase tracking-[0.16em] muted">
+                    External support
+                  </p>
+                )}
+                {member.placeholder && (
+                  <span className="mt-3 inline-block">
+                    <DraftBadge label="Open position" />
+                  </span>
+                )}
               </div>
             </li>
           ))}

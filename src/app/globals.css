@@ -24,7 +24,7 @@
 
 :root {
   --muted: rgb(0 0 0 / 0.55);
-  --hairline: rgb(0 0 0 / 0.14);
+  --hairline: rgb(0 0 0 / 0.09);
 }
 
 @layer base {
@@ -43,8 +43,9 @@
   h2,
   h3 {
     font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: -0.01em;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    line-height: 1.15;
   }
 
   ::selection {

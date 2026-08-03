@@ -11,7 +11,7 @@ export function Section({
   id?: string;
 }) {
   return (
-    <section id={id} className={`px-6 py-20 md:py-28 ${className}`}>
+    <section id={id} className={`px-6 py-24 md:py-32 ${className}`}>
       <div className="mx-auto max-w-7xl">{children}</div>
     </section>
   );
@@ -81,11 +81,7 @@ export function Card({
   className?: string;
 }) {
   return (
-    <div
-      className={`border hairline bg-navy2/40 p-7 transition-colors hover:border-gold/30 ${className}`}
-    >
-      {children}
-    </div>
+    <div className={`bg-navy2/50 p-7 ${className}`}>{children}</div>
   );
 }
 

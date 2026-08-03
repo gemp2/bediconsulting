@@ -2,45 +2,148 @@ export type TeamMember = {
   name: string;
   role: string;
   location: string;
+  /** Years of experience, e.g. "23 yrs". Optional — remove to hide. */
+  experience?: string;
   linkedin?: string;
-  /** Path under /public. Null renders the initials fallback avatar. */
+  /** Path under /public. Omit to render the initials fallback avatar. */
   photo?: string;
-  /** True until real details are supplied — drives the "draft" badge. */
+  /** External / associate support rather than core staff. */
+  external?: boolean;
+  /** Unnamed role still to be filled — renders a DRAFT badge. */
   placeholder?: boolean;
 };
 
 /**
- * PLACEHOLDER DATA — only Dr. Anmol Bedi is confirmed from source material.
+ * TEAM — from the org chart (2026). PLEASE REVIEW AND EDIT before publishing.
  *
- * The deck (slide 14) calls for 15 people with photo, role, location and
- * LinkedIn. None of that exists yet. The entries below are deliberately
- * obvious dummies so they cannot be mistaken for real staff; every one is
- * flagged `placeholder: true` and renders a visible "DRAFT" badge on the page.
+ * Still needed for each person (see CONTENT-TODO.md):
+ *   - LOCATION: set to "TBC" everywhere the chart didn't state one. Fill in
+ *     the real city/country.
+ *   - LinkedIn profile URL (optional per person).
+ *   - Headshot photo (optional — leave blank for the initials avatar).
  *
- * Replace with real people before launch. See CONTENT-TODO.md.
+ * Also confirm: is Paschalis's surname known? Are the three "Helper" roles
+ * named yet, or should they stay as open positions?
  */
 export const team: TeamMember[] = [
+  // — Leadership —
   {
-    name: "Dr. Anmol Bedi",
-    role: "Founder & Principal Engineer",
+    name: "Anmol Bedi",
+    role: "Director",
+    location: "TBC",
+    experience: "23 yrs",
+  },
+  {
+    name: "Raveen Bains",
+    role: "HR / Finance Lead Consultant",
+    location: "TBC",
+  },
+
+  // — Principal Engineers —
+  {
+    name: "Marco Invernici",
+    role: "Principal Engineer",
+    location: "TBC",
+    experience: "14 yrs",
+  },
+  {
+    name: "David Brock",
+    role: "Principal Engineer",
+    location: "TBC",
+    experience: "14 yrs",
+  },
+  {
+    name: "Sagar Sheth",
+    role: "Principal Engineer",
+    location: "TBC",
+    experience: "13 yrs",
+  },
+
+  // — Senior Engineers —
+  {
+    name: "Ramnath Arumugam",
+    role: "Senior Engineer",
+    location: "TBC",
+    experience: "10 yrs",
+  },
+  {
+    name: "Dr. Rakshith Shetty",
+    role: "Senior Engineer",
+    location: "TBC",
+    experience: "10 yrs",
+  },
+  {
+    name: "Rasmus Bjorkman",
+    role: "Senior Engineer",
+    location: "TBC",
+  },
+
+  // — Engineers —
+  {
+    name: "William Fletcher",
+    role: "Engineer",
+    location: "TBC",
+    experience: "8 yrs",
+  },
+  {
+    name: "Roberta Marini",
+    role: "Digital Engineer / Geoscientist",
+    location: "TBC",
+  },
+  {
+    name: "Dr. Praveen Huded",
+    role: "Engineer",
+    location: "TBC",
+  },
+  {
+    name: "Gaurav Mamgain",
+    role: "Engineering Geologist",
+    location: "TBC",
+  },
+  {
+    name: "John Leane",
+    role: "CAD Technician (2D/3D)",
+    location: "TBC",
+  },
+
+  // — Graduate —
+  {
+    name: "Dr. Harshal Verma",
+    role: "Graduate Engineer",
+    location: "TBC",
+  },
+
+  // — External support —
+  {
+    name: "Dr. Claus Wisser",
+    role: "Digital Engineer",
+    location: "TBC",
+    external: true,
+  },
+  {
+    name: "Paschalis",
+    role: "Digital Engineer",
+    location: "TBC",
+    external: true,
+  },
+
+  // — Open positions / helpers (unnamed in the chart) —
+  {
+    name: "Open position",
+    role: "Helper",
+    location: "Australia",
+    placeholder: true,
+  },
+  {
+    name: "Open position",
+    role: "Helper",
+    location: "India",
+    placeholder: true,
+  },
+  {
+    name: "Open position",
+    role: "Helper",
     location: "London, UK",
-  },
-  {
-    name: "TEAM_MEMBER_02",
-    role: "ROLE_TO_BE_CONFIRMED",
-    location: "LOCATION_TBC",
-    placeholder: true,
-  },
-  {
-    name: "TEAM_MEMBER_03",
-    role: "ROLE_TO_BE_CONFIRMED",
-    location: "LOCATION_TBC",
-    placeholder: true,
-  },
-  {
-    name: "TEAM_MEMBER_04",
-    role: "ROLE_TO_BE_CONFIRMED",
-    location: "LOCATION_TBC",
     placeholder: true,
   },
 ];

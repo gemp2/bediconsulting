@@ -1,18 +1,43 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { services } from "@/data/services";
 
 /**
- * Service list with a media panel that reveals the hovered service's
- * photo — or video, where one exists. Drop a clip at
- * /public/media/services/<slug>.mp4 and set `video` in src/data/services.ts
- * to give any service a hover video.
+ * Service list with a media panel that reveals a service's photo — or video,
+ * where one exists. The active service changes on mouse hover AND on scroll:
+ * whichever row sits in the middle band of the viewport becomes active, so the
+ * panel steps through the services as the page scrolls.
+ *
+ * Drop a clip at /public/media/services/<slug>.mp4 and set `video` in
+ * src/data/services.ts to give any service a hover video.
  */
 export function ServicesShowcase() {
   const [active, setActive] = useState(0);
   const s = services[active];
+  const rowRefs = useRef<(HTMLLIElement | null)[]>([]);
+
+  // Scroll-driven highlight: the row crossing the viewport's centre band wins.
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            const idx = Number(
+              (e.target as HTMLElement).dataset.idx ?? "0",
+            );
+            setActive(idx);
+          }
+        }
+      },
+      // Thin band across the vertical centre of the viewport.
+      { rootMargin: "-48% 0px -48% 0px", threshold: 0 },
+    );
+    rowRefs.current.forEach((el) => el && obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_1.05fr] lg:gap-12">
@@ -52,7 +77,13 @@ export function ServicesShowcase() {
       {/* list */}
       <ul className="order-2 divide-y divide-black/5 border-y hairline lg:order-1">
         {services.map((sv, i) => (
-          <li key={sv.slug}>
+          <li
+            key={sv.slug}
+            data-idx={i}
+            ref={(el) => {
+              rowRefs.current[i] = el;
+            }}
+          >
             <Link
               href={`/services#${sv.slug}`}
               onMouseEnter={() => setActive(i)}

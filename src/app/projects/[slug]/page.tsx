@@ -96,10 +96,35 @@ export default async function ProjectPage({ params }: Params) {
         </dl>
 
         <div className="mt-14">
-          <ImagePlaceholder
-            label={`${project.name} — construction photography needed`}
-            aspect="aspect-[21/9]"
-          />
+          {project.images && project.images.length > 0 ? (
+            <div
+              className={`grid gap-4 ${
+                project.images.length > 1 ? "md:grid-cols-2" : ""
+              }`}
+            >
+              {project.images.map((img) => (
+                <figure key={img.src} className="border hairline bg-navy2/40">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={img.src}
+                    alt={img.caption ?? project.name}
+                    className="aspect-[16/10] w-full object-cover"
+                    loading="lazy"
+                  />
+                  {img.caption && (
+                    <figcaption className="px-4 py-3 text-xs muted">
+                      {img.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              ))}
+            </div>
+          ) : (
+            <ImagePlaceholder
+              label={`${project.name} — construction photography needed`}
+              aspect="aspect-[21/9]"
+            />
+          )}
         </div>
       </Section>
 

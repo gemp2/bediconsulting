@@ -33,6 +33,8 @@ export type Project = {
   role?: string;
   value?: string;
   awards?: string[];
+  /** Photos under /public/media/projects. Falls back to a placeholder if empty. */
+  images?: { src: string; caption?: string }[];
   /** Present only on projects with a written case study. */
   caseStudy?: CaseStudy;
 };
@@ -164,6 +166,16 @@ export const projects: Project[] = [
       "ITA Awards Finalist 2015",
       "BGA Fleming Award 2015",
       "Specialist Tunnelling Project of the Year 2016",
+    ],
+    images: [
+      {
+        src: "/media/projects/victoria-station-upgrade.jpg",
+        caption: "SCL tunnelling within the live Victoria Station.",
+      },
+      {
+        src: "/media/projects/victoria-station-point-cloud.png",
+        caption: "Point-cloud scan of the station tunnels.",
+      },
     ],
     caseStudy: {
       category: "Metro & Rail · SCL Tunnelling · London",

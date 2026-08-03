@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { team, milestones, values, type TeamMember } from "@/data/team";
 import { stats } from "@/data/site";
+import { companyUrl } from "@/data/linkedin";
 import {
   Button,
   Card,
@@ -12,14 +13,12 @@ import {
 
 /** Initials avatar; swaps to a photo once `member.photo` is set. */
 function Avatar({ member }: { member: TeamMember }) {
-  const initials = member.placeholder
-    ? "?"
-    : member.name
-        .replace(/^Dr\.?\s+/, "")
-        .split(/\s+/)
-        .map((w) => w[0])
-        .slice(0, 2)
-        .join("");
+  const initials = member.name
+    .replace(/^Dr\.?\s+/, "")
+    .split(/\s+/)
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join("");
 
   if (member.photo) {
     // eslint-disable-next-line @next/next/no-img-element
@@ -35,14 +34,18 @@ function Avatar({ member }: { member: TeamMember }) {
   return (
     <span
       aria-hidden
-      className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-sm ${
-        member.placeholder
-          ? "border border-dashed border-black/25 text-black/40"
-          : "bg-navy2 text-bone/70"
-      }`}
+      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-navy2 text-sm text-bone/70"
     >
       {initials}
     </span>
+  );
+}
+
+function LinkedInMark({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className={className} fill="currentColor">
+      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z" />
+    </svg>
   );
 }
 
@@ -110,8 +113,8 @@ export default function AboutPage() {
         <SectionHeading eyebrow="The team" title="The people behind the work." />
 
         <p className="mt-6 max-w-2xl text-sm leading-relaxed muted">
-          Draft from the current org chart. Locations, LinkedIn links and
-          photographs are still to be added — see CONTENT-TODO.md.
+          Photographs and individual LinkedIn links are still being added — edit
+          them in <code className="text-bone/80">src/data/team.ts</code>.
         </p>
 
         <ul className="mt-16 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
@@ -121,20 +124,16 @@ export default function AboutPage() {
               <div className="min-w-0">
                 <h3 className="text-base text-bone">{member.name}</h3>
                 <p className="mt-0.5 text-sm text-gold">{member.role}</p>
-                <p className="mt-1.5 text-xs muted">
-                  {member.location}
-                  {member.experience ? ` · ${member.experience}` : ""}
-                </p>
-                {member.external && (
-                  <p className="mt-2 text-[10px] uppercase tracking-[0.16em] muted">
-                    External support
-                  </p>
-                )}
-                {member.placeholder && (
-                  <span className="mt-3 inline-block">
-                    <DraftBadge label="Open position" />
-                  </span>
-                )}
+                <p className="mt-1.5 text-xs muted">{member.location}</p>
+                <a
+                  href={member.linkedin || companyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${member.name} on LinkedIn`}
+                  className="mt-3 inline-flex text-bone/40 transition-colors hover:text-[#0A66C2]"
+                >
+                  <LinkedInMark className="h-4 w-4" />
+                </a>
               </div>
             </li>
           ))}

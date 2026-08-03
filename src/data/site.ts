@@ -22,6 +22,12 @@ export const site = {
   office: "London Victoria, UK",
 } as const;
 
+/** Social profiles used in the footer. Add the Instagram URL when known. */
+export const socials = {
+  linkedin: "https://www.linkedin.com/company/bedi-consulting-ltd/",
+  instagram: "", // TODO: add the BEDI Instagram profile URL
+} as const;
+
 export const nav = [
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
@@ -105,13 +111,12 @@ export const testimonials = [
   },
 ] as const;
 
-/** Named clients and programmes evidenced by the project record. */
+/** Real clients with logos (from the deck's "Our Clients" wall). */
 export const clients = [
-  "London Underground",
-  "Network Rail",
-  "Crossrail",
-  "Taylor Woodrow BAM Nuttall JV",
-  "Gall Zeidler Consultants",
-  "TransGrid",
-  "BACS",
+  { name: "Network Rail", logo: "/media/clients/network-rail.png" },
+  { name: "Transport for London", logo: "/media/clients/tfl.png" },
+  { name: "Docklands Light Railway", logo: "/media/clients/dlr.png" },
+  { name: "Morgan Sindall Group", logo: "/media/clients/morgan-sindall.png" },
+  { name: "Willmott Dixon", logo: "/media/clients/willmott-dixon.png" },
+  { name: "Walker", logo: "/media/clients/walker.png" },
 ] as const;

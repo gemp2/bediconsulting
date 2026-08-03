@@ -4,6 +4,11 @@ export type Service = {
   name: string;
   body: string;
   tags: string[];
+  /** Real site photo for the card. */
+  image?: string;
+  /** Real site video for the card (takes precedence over image). */
+  video?: string;
+  poster?: string;
 };
 
 /**
@@ -20,6 +25,7 @@ export const services: Service[] = [
     name: "Mined Tunnels",
     body: "SCL/NATM design for soft ground, mixed face and rock. Multi-face sequences, face stability and temporary lining design.",
     tags: ["SCL", "NATM", "Face stability", "Temporary lining"],
+    image: "/media/tunnel-portal.jpg",
   },
   {
     slug: "mechanised-tunnels",
@@ -27,6 +33,7 @@ export const services: Service[] = [
     name: "Mechanised Tunnels",
     body: "TBM segmental lining design, ring build and temporary works. EPB, slurry and compressed air experience across multiple continents.",
     tags: ["TBM", "Segmental lining", "EPB", "Slurry"],
+    image: "/media/tunnel-bore.jpg",
   },
   {
     slug: "cut-and-cover-shafts",
@@ -55,6 +62,8 @@ export const services: Service[] = [
     name: "Digital Assessment",
     body: "LiDAR scanning, point cloud processing and remote sensing for non-invasive structural health and material assessment of existing tunnels and heritage assets.",
     tags: ["LiDAR", "Point cloud", "UAV", "Non-invasive"],
+    video: "/media/field-survey.mp4",
+    poster: "/media/digital-survey.jpg",
   },
 ];
 

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { site, stats, capabilityTicker, testimonials, clients } from "@/data/site";
 import { services } from "@/data/services";
-import { countryCount, projects } from "@/data/projects";
 import { Marquee } from "@/components/Marquee";
-import { ProjectExplorer } from "@/components/ProjectExplorer";
+import { HeroVideo } from "@/components/HeroVideo";
+import { HomeMap } from "@/components/HomeMap";
 import { LinkedInWidget } from "@/components/LinkedInWidget";
 import { Button, Section, SectionHeading, Stat } from "@/components/ui";
 
@@ -21,20 +21,17 @@ export default function HomePage() {
 
   return (
     <>
-      {/* BLOCK 1 — Hero */}
+      {/* BLOCK 1 — Hero with background video */}
       <section className="relative overflow-hidden border-b hairline">
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_120%,rgba(247,148,30,0.12),transparent_60%)]"
-        />
-        <div className="relative mx-auto max-w-7xl px-6 py-28 md:py-40">
+        <HeroVideo />
+        <div className="relative mx-auto max-w-7xl px-6 py-36 md:py-52">
           <p className="eyebrow">{site.eyebrow}</p>
-          <h1 className="mt-6 max-w-4xl text-4xl leading-[1.05] md:text-6xl">
+          <h1 className="mt-6 max-w-4xl text-4xl leading-[1.05] text-white md:text-6xl">
             {before}
             <span className="text-gold">{site.sloganAccent}</span>
             {after}
           </h1>
-          <p className="mt-8 max-w-2xl text-base leading-relaxed muted md:text-lg">
+          <p className="mt-8 max-w-2xl text-base leading-relaxed text-white/85 md:text-lg">
             {site.description}
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
@@ -43,20 +40,6 @@ export default function HomePage() {
               Our services
             </Button>
           </div>
-        </div>
-
-        {/* Hero video — real BEDI site footage */}
-        <div className="relative mt-8 md:mt-12">
-          <video
-            className="h-[55vh] w-full object-cover md:h-[72vh]"
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster="/media/tunnel-bore.jpg"
-          >
-            <source src="/media/hero-tunnel.mp4" type="video/mp4" />
-          </video>
         </div>
       </section>
 
@@ -71,28 +54,27 @@ export default function HomePage() {
         </div>
 
         <div className="mt-16">
-          <p className="eyebrow">Selected clients &amp; programmes</p>
-          <ul className="mt-6 flex flex-wrap gap-x-10 gap-y-4">
+          <p className="eyebrow">Selected clients</p>
+          <ul className="mt-8 grid grid-cols-2 items-center gap-x-10 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
             {clients.map((c) => (
-              <li key={c} className="text-sm tracking-wide text-bone/55">
-                {c}
+              <li key={c.name} className="flex items-center justify-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={c.logo}
+                  alt={c.name}
+                  className="h-10 w-auto max-w-[140px] object-contain opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0"
+                  loading="lazy"
+                />
               </li>
             ))}
           </ul>
         </div>
       </Section>
 
-      {/* Map — where we work */}
-      <Section id="where-we-are" className="border-b hairline">
-        <SectionHeading
-          eyebrow="Where we work"
-          title={`${projects.length} projects across ${countryCount} countries.`}
-          body="Filter by discipline, region or period — or click any pin to see the detail."
-        />
-        <div className="mt-12">
-          <ProjectExplorer />
-        </div>
-      </Section>
+      {/* Map — just the map: light, clickable pins, detail links */}
+      <section id="where-we-are" className="border-b hairline">
+        <HomeMap />
+      </section>
 
       {/* What we do — services */}
       <Section className="border-b hairline">
@@ -125,47 +107,6 @@ export default function HomePage() {
             </li>
           ))}
         </ul>
-      </Section>
-
-      {/* In the field — real site media */}
-      <Section className="border-b hairline">
-        <SectionHeading
-          eyebrow="In the field"
-          title="Where the work actually happens."
-          body="Night possessions, heritage tunnels and live railway — our engineers on site, on the tools."
-        />
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {/* eslint-disable @next/next/no-img-element */}
-          <img
-            src="/media/tunnel-portal.jpg"
-            alt="Engineers at a masonry railway tunnel portal at dusk"
-            className="aspect-[3/4] w-full object-cover"
-            loading="lazy"
-          />
-          <img
-            src="/media/digital-survey.jpg"
-            alt="Engineer capturing a digital survey of a brick tunnel wall"
-            className="aspect-[3/4] w-full object-cover"
-            loading="lazy"
-          />
-          <img
-            src="/media/tunnel-bore.jpg"
-            alt="View along the track into a lit tunnel bore"
-            className="aspect-[3/4] w-full object-cover"
-            loading="lazy"
-          />
-          {/* eslint-enable @next/next/no-img-element */}
-          <video
-            className="aspect-[3/4] w-full object-cover"
-            controls
-            muted
-            playsInline
-            preload="metadata"
-            poster="/media/digital-survey.jpg"
-          >
-            <source src="/media/field-survey.mp4" type="video/mp4" />
-          </video>
-        </div>
       </Section>
 
       {/* What clients say */}

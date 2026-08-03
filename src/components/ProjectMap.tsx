@@ -5,8 +5,8 @@ import maplibregl, { type Map as MlMap, type Marker } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { typeColors, type Project } from "@/data/projects";
 
-const BASEMAP =
-  "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json";
+// Light, clean basemap.
+const BASEMAP = "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json";
 
 type Props = {
   projects: Project[];
@@ -75,28 +75,35 @@ export function ProjectMap({
       el.style.cssText = `width:14px;height:14px;border-radius:9999px;cursor:pointer;border:2px solid ${
         typeColors[project.type]
       };background:${typeColors[project.type]}40;transition:transform .15s`;
-      el.addEventListener("click", (e) => {
-        e.stopPropagation();
-        onSelectRef.current?.(project);
-      });
 
+      const href = project.caseStudy
+        ? `/projects/${project.slug}`
+        : "/projects";
       const popup = new maplibregl.Popup({
         offset: 16,
-        closeButton: false,
+        closeButton: true,
+        maxWidth: "260px",
       }).setHTML(
-        `<div style="font-family:sans-serif;padding:2px 4px">
-           <strong style="display:block;font-size:12px;color:#06090f">${escapeHtml(project.name)}</strong>
-           <span style="font-size:11px;color:#444">${escapeHtml(project.location)} · ${project.year}</span>
+        `<div style="font-family:sans-serif;padding:4px 6px 6px">
+           <span style="display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:${typeColors[project.type]}">${escapeHtml(project.type)}</span>
+           <strong style="display:block;margin-top:3px;font-size:13px;color:#06090f">${escapeHtml(project.name)}</strong>
+           <span style="display:block;margin-top:2px;font-size:11px;color:#555">${escapeHtml(project.location)} · ${project.year}</span>
+           <a href="${href}" style="display:inline-block;margin-top:9px;font-size:11px;font-weight:600;color:#f7941e;text-decoration:none">More detail →</a>
          </div>`,
       );
 
-      markers.current.set(
-        project.id,
-        new maplibregl.Marker({ element: el })
-          .setLngLat([project.lng, project.lat])
-          .setPopup(popup)
-          .addTo(map.current),
-      );
+      const marker = new maplibregl.Marker({ element: el })
+        .setLngLat([project.lng, project.lat])
+        .setPopup(popup)
+        .addTo(map.current);
+
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        marker.togglePopup();
+        onSelectRef.current?.(project);
+      });
+
+      markers.current.set(project.id, marker);
     }
   }, [projects]);
 

@@ -2,118 +2,105 @@ export type TeamMember = {
   name: string;
   role: string;
   location: string;
-  /** Years of experience, e.g. "23 yrs". Optional — remove to hide. */
-  experience?: string;
+  /** LinkedIn profile URL. Leave "" to fall back to the company page. */
   linkedin?: string;
-  /** Path under /public. Omit to render the initials fallback avatar. */
+  /** Path under /public (e.g. "/media/headshots/anmol.jpg"). "" = initials. */
   photo?: string;
-  /** External / associate support rather than core staff. */
-  external?: boolean;
-  /** Unnamed role still to be filled — renders a DRAFT badge. */
-  placeholder?: boolean;
 };
 
 /**
- * TEAM — from the org chart (2026). PLEASE REVIEW AND EDIT before publishing.
+ * TEAM — edit this list freely.
  *
- * Still needed for each person (see CONTENT-TODO.md):
- *   - LOCATION: set to "TBC" everywhere the chart didn't state one. Fill in
- *     the real city/country.
- *   - LinkedIn profile URL (optional per person).
- *   - Headshot photo (optional — leave blank for the initials avatar).
- *
- * Also confirm: is Paschalis's surname known? Are the three "Helper" roles
- * named yet, or should they stay as open positions?
+ * To update a person: change name / role / location, paste their LinkedIn
+ * profile URL into `linkedin`, and (optionally) point `photo` at a headshot
+ * in /public. To add someone, copy a block. To remove someone, delete it.
  */
 export const team: TeamMember[] = [
-  // — Leadership —
   {
     name: "Anmol Bedi",
     role: "Director",
     location: "London",
-    experience: "23 yrs",
+    linkedin: "",
   },
   {
     name: "Raveen Bains",
     role: "HR / Finance Lead Consultant",
     location: "London",
+    linkedin: "",
   },
-
-  // — Principal Engineers —
   {
     name: "Marco Invernici",
     role: "Principal Engineer",
     location: "London",
-    experience: "14 yrs",
+    linkedin: "",
   },
   {
     name: "David Brock",
     role: "Principal Engineer",
     location: "Cyprus",
-    experience: "14 yrs",
+    linkedin: "",
   },
   {
     name: "Sagar Sheth",
     role: "Principal Engineer",
     location: "London",
-    experience: "13 yrs",
+    linkedin: "",
   },
-
-  // — Senior Engineers —
   {
     name: "Ramnath Arumugam",
     role: "Senior Engineer",
     location: "India",
-    experience: "10 yrs",
+    linkedin: "",
   },
   {
     name: "Dr. Rakshith Shetty",
     role: "Senior Engineer",
     location: "India",
-    experience: "10 yrs",
+    linkedin: "",
   },
   {
     name: "Rasmus Bjorkman",
     role: "Senior Engineer",
     location: "Australia",
+    linkedin: "",
   },
-
-  // — Engineers —
   {
     name: "William Fletcher",
     role: "Engineer",
     location: "London",
-    experience: "8 yrs",
+    linkedin: "",
   },
   {
     name: "Roberta Marini",
     role: "Digital Engineer / Geoscientist",
     location: "London",
+    linkedin: "",
   },
   {
     name: "Dr. Praveen Huded",
     role: "Engineer",
     location: "India",
+    linkedin: "",
   },
   {
     name: "Gaurav Mamgain",
     role: "Engineering Geologist",
     location: "India",
+    linkedin: "",
   },
   {
     name: "John Leane",
     role: "CAD Technician (2D/3D)",
     location: "London",
+    linkedin: "",
   },
-
-  // — Graduate —
   {
     name: "Dr. Harshal Verma",
     role: "Graduate Engineer",
     location: "India",
+    linkedin: "",
   },
-
- ];
+];
 
 export type Milestone = {
   year: string;

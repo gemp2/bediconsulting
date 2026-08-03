@@ -56,11 +56,32 @@ export default function ServicesPage() {
               id={s.slug}
               className="scroll-mt-24 border hairline bg-navy2/40"
             >
-              <ImagePlaceholder
-                label={`${s.name} — example image needed`}
-                aspect="aspect-[16/9]"
-                className="border-0 border-b border-dashed"
-              />
+              {s.video ? (
+                <video
+                  className="aspect-[16/9] w-full border-b hairline object-cover"
+                  controls
+                  muted
+                  playsInline
+                  preload="metadata"
+                  poster={s.poster}
+                >
+                  <source src={s.video} type="video/mp4" />
+                </video>
+              ) : s.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={s.image}
+                  alt={`${s.name} — Bedi Consulting on site`}
+                  className="aspect-[16/9] w-full border-b hairline object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <ImagePlaceholder
+                  label={`${s.name} — example image needed`}
+                  aspect="aspect-[16/9]"
+                  className="border-0 border-b border-dashed"
+                />
+              )}
               <div className="p-7">
                 <div className="flex items-baseline gap-4">
                   <span className="font-display text-sm font-semibold text-gold/70">

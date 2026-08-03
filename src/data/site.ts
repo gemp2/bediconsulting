@@ -19,7 +19,9 @@ export const site = {
   description:
     "SCL/NATM and TBM tunnels, shafts and deep excavations, ground investigation, instrumentation and digital condition assessment — from design conception to construction support.",
   email: "a.bedi@bediconsulting.com",
-  office: "London Victoria, UK",
+  office: "London W4, UK",
+  address: "11 Whitehall Gardens, London W4 3LT",
+  phone: "+44 (0)7912 201891",
 } as const;
 
 /** Social profiles used in the footer and contact page. */
@@ -29,8 +31,8 @@ export const socials = {
   instagram: "", // TODO: add the BEDI Instagram profile URL
 } as const;
 
-/** Google Maps query for the office (refine with the exact street address). */
-export const officeMapQuery = "Victoria, London, UK";
+/** Google Maps query for the office. */
+export const officeMapQuery = "11 Whitehall Gardens, London W4 3LT";
 
 export const nav = [
   { label: "About Us", href: "/about" },

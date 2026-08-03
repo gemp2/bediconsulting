@@ -50,6 +50,20 @@ export default function HomePage() {
             </Button>
           </div>
         </div>
+
+        {/* Hero video — real BEDI site footage */}
+        <div className="relative mt-8 md:mt-12">
+          <video
+            className="h-[55vh] w-full object-cover md:h-[72vh]"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/media/tunnel-bore.jpg"
+          >
+            <source src="/media/hero-tunnel.mp4" type="video/mp4" />
+          </video>
+        </div>
       </section>
 
       {/* BLOCK 2 — Numbers + clients */}
@@ -163,6 +177,45 @@ export default function HomePage() {
               </div>
             </Link>
           ))}
+        </div>
+      </Section>
+
+      {/* In the field — real site media */}
+      <Section className="border-b hairline">
+        <SectionHeading
+          eyebrow="In the field"
+          title="Where the work actually happens."
+          body="Night possessions, heritage tunnels and live railway — our engineers on site, on the tools."
+        />
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <img
+            src="/media/tunnel-portal.jpg"
+            alt="Engineers at a masonry railway tunnel portal at dusk"
+            className="aspect-[3/4] w-full object-cover"
+            loading="lazy"
+          />
+          <img
+            src="/media/digital-survey.jpg"
+            alt="Engineer capturing a digital survey of a brick tunnel wall"
+            className="aspect-[3/4] w-full object-cover"
+            loading="lazy"
+          />
+          <img
+            src="/media/tunnel-bore.jpg"
+            alt="View along the track into a lit tunnel bore"
+            className="aspect-[3/4] w-full object-cover"
+            loading="lazy"
+          />
+          <video
+            className="aspect-[3/4] w-full object-cover"
+            controls
+            muted
+            playsInline
+            preload="metadata"
+            poster="/media/digital-survey.jpg"
+          >
+            <source src="/media/field-survey.mp4" type="video/mp4" />
+          </video>
         </div>
       </Section>
 

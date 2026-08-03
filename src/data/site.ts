@@ -22,11 +22,15 @@ export const site = {
   office: "London Victoria, UK",
 } as const;
 
-/** Social profiles used in the footer. Add the Instagram URL when known. */
+/** Social profiles used in the footer and contact page. */
 export const socials = {
-  linkedin: "https://www.linkedin.com/company/bedi-consulting-ltd/",
+  linkedin:
+    "https://www.linkedin.com/company/bedi-consulting-ltd/posts/?feedView=all",
   instagram: "", // TODO: add the BEDI Instagram profile URL
 } as const;
+
+/** Google Maps query for the office (refine with the exact street address). */
+export const officeMapQuery = "Victoria, London, UK";
 
 export const nav = [
   { label: "About Us", href: "/about" },

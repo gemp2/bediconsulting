@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { site } from "@/data/site";
+import { site, socials, officeMapQuery } from "@/data/site";
 import { ContactForm } from "@/components/ContactForm";
 import { DraftBadge, Section } from "@/components/ui";
 
@@ -43,8 +43,21 @@ export default function ContactPage() {
                 Office
               </dt>
               <dd className="mt-2 text-sm text-bone">{site.office}</dd>
-              <dd className="mt-2">
-                <DraftBadge label="Full address & phone needed" />
+              <dd className="mt-4">
+                <div className="overflow-hidden border hairline">
+                  <iframe
+                    title={`Map of ${site.office}`}
+                    src={`https://maps.google.com/maps?q=${encodeURIComponent(
+                      officeMapQuery,
+                    )}&z=13&output=embed`}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="block h-56 w-full"
+                  />
+                </div>
+                <span className="mt-2 inline-block">
+                  <DraftBadge label="Full address & phone to add" />
+                </span>
               </dd>
             </div>
 
@@ -53,7 +66,14 @@ export default function ContactPage() {
                 LinkedIn
               </dt>
               <dd className="mt-2">
-                <DraftBadge label="Company page URL needed" />
+                <a
+                  href={socials.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-gold hover:underline"
+                >
+                  Follow Bedi Consulting on LinkedIn →
+                </a>
               </dd>
             </div>
           </dl>

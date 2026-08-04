@@ -13,15 +13,25 @@ export default function ToolsPage() {
   return (
     <>
       <Section className="border-b hairline">
-        <p className="eyebrow">Our Tools</p>
-        <h1 className="mt-4 max-w-3xl text-4xl leading-tight md:text-5xl">
-          Free tools for tunnel &amp; geotechnical engineers.
-        </h1>
-        <p className="mt-7 max-w-2xl text-base leading-relaxed muted">
-          Browser-based calculators used in our own work, shared free — no
-          sign-up. For engineers, engineering geologists and students working
-          underground.
-        </p>
+        <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
+          <div>
+            <p className="eyebrow">Our Tools</p>
+            <h1 className="mt-4 text-4xl leading-tight md:text-5xl">
+              Free tools for tunnel &amp; geotechnical engineers.
+            </h1>
+            <p className="mt-7 max-w-lg text-base leading-relaxed muted">
+              Browser-based calculators used in our own work, shared free — no
+              sign-up. For engineers, engineering geologists and students
+              working underground.
+            </p>
+          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/media/services/digital-assessment.png"
+            alt="Point-cloud scan of a railway tunnel"
+            className="aspect-[4/3] w-full object-cover"
+          />
+        </div>
       </Section>
 
       {/* The tool, embedded directly on the page */}

@@ -59,7 +59,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Our Services — full-bleed image, frosted panel, hover/scroll reveal */}
+      {/* Our Services — title above, full-bleed image below */}
+      <Section className="border-b hairline">
+        <SectionHeading
+          eyebrow="Our Services"
+          title="From ground investigation to construction support."
+          body="Concept design, numerical analysis and site support across tunnels, shafts, deep excavations and existing-asset assessment."
+        />
+      </Section>
       <ServicesShowcase />
 
       {/* Clients — below services */}

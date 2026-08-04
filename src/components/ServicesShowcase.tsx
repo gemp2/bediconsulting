@@ -5,18 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import { services } from "@/data/services";
 
 /**
- * Full-bleed services section. The active service's photo fills the whole
- * section behind a frosted-glass panel that lists the services. The active
- * service changes on mouse hover AND on scroll (the row in the middle band of
- * the viewport wins), crossfading the background. Each row links to its detail
- * page, and the active service also shows an explicit "Learn more" button.
- *
- * Give a service a background video by setting `video` in
- * src/data/services.ts (file at /public/media/services/<slug>.mp4).
+ * Full-bleed services band. The active service's photo fills the section as a
+ * crossfading background; the six services sit in a frosted-glass box, each
+ * with its own short description. The active service changes on mouse hover and
+ * on scroll (the row in the middle band of the viewport wins). Each row links
+ * to its detail page. The section title lives above this component.
  */
 export function ServicesShowcase() {
   const [active, setActive] = useState(0);
-  const s = services[active];
   const rowRefs = useRef<(HTMLLIElement | null)[]>([]);
 
   // Scroll-driven highlight: the row crossing the viewport's centre band wins.
@@ -66,42 +62,37 @@ export function ServicesShowcase() {
             />
           ),
         )}
-        {/* Legibility gradient over the panel side */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />
+        {/* Light gradient, just enough depth behind the box */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/10 to-transparent" />
       </div>
 
-      {/* Content */}
-      <div className="relative mx-auto flex min-h-[88vh] max-w-7xl items-center px-6 py-24">
-        <div className="w-full max-w-md border border-white/15 bg-black/40 p-8 backdrop-blur-md">
-          <p className="text-[10px] uppercase tracking-[0.22em] text-gold">
-            Our Services
-          </p>
-          <h2 className="mt-3 text-3xl leading-tight text-white">
-            From ground investigation to construction support.
-          </h2>
-
-          <ul className="mt-8 divide-y divide-white/10">
-            {services.map((sv, i) => (
-              <li
-                key={sv.slug}
-                data-idx={i}
-                ref={(el) => {
-                  rowRefs.current[i] = el;
-                }}
+      {/* Content — only the six services, in a frosted box */}
+      <div className="relative mx-auto flex min-h-[80vh] max-w-7xl items-center px-6 py-24">
+        <ul className="w-full max-w-lg divide-y divide-white/10 border border-white/15 bg-black/35 px-7 py-3 backdrop-blur-md">
+          {services.map((sv, i) => (
+            <li
+              key={sv.slug}
+              data-idx={i}
+              ref={(el) => {
+                rowRefs.current[i] = el;
+              }}
+            >
+              <Link
+                href={`/services#${sv.slug}`}
+                onMouseEnter={() => setActive(i)}
+                onFocus={() => setActive(i)}
+                aria-current={active === i ? "true" : undefined}
+                className="group block py-4"
               >
-                <Link
-                  href={`/services#${sv.slug}`}
-                  onMouseEnter={() => setActive(i)}
-                  onFocus={() => setActive(i)}
-                  aria-current={active === i ? "true" : undefined}
-                  className="group flex items-center gap-4 py-3.5"
-                >
+                <div className="flex items-baseline gap-3">
                   <span className="font-display text-xs font-semibold text-gold/70">
                     {sv.num}
                   </span>
                   <span
                     className={`flex-1 text-base transition-colors ${
-                      active === i ? "text-gold" : "text-white/85"
+                      active === i
+                        ? "text-gold"
+                        : "text-white/90 group-hover:text-gold"
                     }`}
                   >
                     {sv.name}
@@ -115,22 +106,14 @@ export function ServicesShowcase() {
                   >
                     →
                   </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-
-          {/* Active service detail + explicit button */}
-          <div className="mt-6 border-t border-white/15 pt-5">
-            <p className="text-sm leading-relaxed text-white/75">{s.body}</p>
-            <Link
-              href={`/services#${s.slug}`}
-              className="mt-5 inline-flex items-center gap-2 bg-gold px-5 py-2.5 text-xs uppercase tracking-[0.14em] text-white transition-colors hover:bg-gold/85"
-            >
-              Learn more →
-            </Link>
-          </div>
-        </div>
+                </div>
+                <p className="mt-1.5 pl-7 text-xs leading-relaxed text-white/65">
+                  {sv.body}
+                </p>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

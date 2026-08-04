@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
 import { services, approach } from "@/data/services";
 import { challengeIntro, challenges } from "@/data/site";
-import {
-  Button,
-  Card,
-  ImagePlaceholder,
-  Section,
-  SectionHeading,
-} from "@/components/ui";
+import { Button, Card, Section, SectionHeading } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -47,50 +41,82 @@ export default function ServicesPage() {
         </div>
       </Section>
 
-      {/* BLOCK 1 — Our services */}
+      {/* BLOCK 1 — Our services (click to expand) */}
       <Section className="border-b hairline">
-        <div className="grid gap-6 md:grid-cols-2">
+        <p className="text-sm muted">Select a service for the full detail.</p>
+        <div className="mt-8 space-y-4">
           {services.map((s) => (
-            <article
+            <details
               key={s.slug}
               id={s.slug}
-              className="scroll-mt-24 border hairline bg-navy2/40"
+              className="group scroll-mt-24 border hairline bg-navy2/40 open:bg-navy2/60"
             >
-              {s.video ? (
-                <video
-                  className="aspect-[16/9] w-full border-b hairline object-cover"
-                  controls
-                  muted
-                  playsInline
-                  preload="metadata"
-                  poster={s.poster}
-                >
-                  <source src={s.video} type="video/mp4" />
-                </video>
-              ) : s.image ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={s.image}
-                  alt={`${s.name} — Bedi Consulting on site`}
-                  className="aspect-[16/9] w-full border-b hairline object-cover"
-                  loading="lazy"
-                />
-              ) : (
-                <ImagePlaceholder
-                  label={`${s.name} — example image needed`}
-                  aspect="aspect-[16/9]"
-                  className="border-0 border-b border-dashed"
-                />
-              )}
-              <div className="p-7">
-                <div className="flex items-baseline gap-4">
-                  <span className="font-display text-sm font-semibold text-gold/70">
-                    {s.num}
-                  </span>
-                  <h2 className="text-xl">{s.name}</h2>
+              <summary className="flex cursor-pointer list-none items-center gap-5 p-6 [&::-webkit-details-marker]:hidden">
+                {s.image && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={s.image}
+                    alt=""
+                    className="hidden h-20 w-28 shrink-0 object-cover sm:block"
+                    loading="lazy"
+                  />
+                )}
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-baseline gap-3">
+                    <span className="font-display text-sm font-semibold text-gold/70">
+                      {s.num}
+                    </span>
+                    <h2 className="text-xl">{s.name}</h2>
+                  </div>
+                  <p className="mt-2 text-sm leading-relaxed muted">{s.body}</p>
                 </div>
-                <p className="mt-4 text-sm leading-relaxed muted">{s.body}</p>
-                <ul className="mt-6 flex flex-wrap gap-2">
+                <span
+                  aria-hidden
+                  className="svc-toggle shrink-0 text-2xl leading-none text-gold"
+                />
+              </summary>
+
+              <div className="border-t hairline px-6 pb-8 pt-6">
+                {s.intro && (
+                  <p className="max-w-3xl text-sm leading-relaxed text-bone/80">
+                    {s.intro}
+                  </p>
+                )}
+
+                {s.sections && (
+                  <div className="mt-8 grid gap-8 md:grid-cols-2">
+                    {s.sections.map((sec) => (
+                      <div key={sec.heading}>
+                        <h3 className="text-sm font-semibold text-gold">
+                          {sec.heading}
+                        </h3>
+                        {sec.body && (
+                          <p className="mt-2 text-sm leading-relaxed muted">
+                            {sec.body}
+                          </p>
+                        )}
+                        {sec.points && (
+                          <ul className="mt-3 space-y-2">
+                            {sec.points.map((p) => (
+                              <li
+                                key={p}
+                                className="flex items-start gap-3 text-sm text-bone/80"
+                              >
+                                <span
+                                  aria-hidden
+                                  className="mt-2 h-1 w-1 shrink-0 bg-gold/60"
+                                />
+                                {p}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <ul className="mt-8 flex flex-wrap gap-2">
                   {s.tags.map((tag) => (
                     <li
                       key={tag}
@@ -101,7 +127,7 @@ export default function ServicesPage() {
                   ))}
                 </ul>
               </div>
-            </article>
+            </details>
           ))}
         </div>
       </Section>

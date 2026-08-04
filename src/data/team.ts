@@ -147,6 +147,34 @@ export const milestones: Milestone[] = [
   },
 ];
 
+/** Core values (from BEDI). */
+export const coreValues = [
+  {
+    title: "Excellence",
+    body: "We aim to deliver perfection in all facets of our work.",
+  },
+  {
+    title: "Integrity",
+    body: "Upholding high moral standards and ethical principles throughout all dealings.",
+  },
+  {
+    title: "Reliability",
+    body: "Working above and beyond expectation to deliver success.",
+  },
+  {
+    title: "Transparency",
+    body: "We believe in open communication and accountability.",
+  },
+  {
+    title: "Collaboration",
+    body: "Working together with clients to deliver co-operative designs.",
+  },
+  {
+    title: "Safety",
+    body: "We hold the safety of the public and the individual highly in all decisions.",
+  },
+];
+
 /** How the practice works — method statements, not slogans. */
 export const values = [
   {

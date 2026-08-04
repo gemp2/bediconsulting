@@ -91,6 +91,14 @@
   animation: marquee 45s linear infinite;
 }
 
+/* Service accordion: "+" when closed, "–" when open. */
+.svc-toggle::after {
+  content: "+";
+}
+details[open] .svc-toggle::after {
+  content: "–";
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
     animation: none;

@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
-import { team, milestones, values, type TeamMember } from "@/data/team";
-import { stats } from "@/data/site";
+import {
+  team,
+  milestones,
+  values,
+  coreValues,
+  type TeamMember,
+} from "@/data/team";
 import { companyUrl } from "@/data/linkedin";
 import {
   Button,
@@ -8,7 +13,6 @@ import {
   DraftBadge,
   Section,
   SectionHeading,
-  Stat,
 } from "@/components/ui";
 
 /** Initials avatar; swaps to a photo once `member.photo` is set. */
@@ -87,10 +91,18 @@ export default function AboutPage() {
           />
         </div>
 
-        <div className="mt-20 grid grid-cols-2 gap-10 border-t hairline pt-14 md:grid-cols-4">
-          {stats.map((s) => (
-            <Stat key={s.label} value={s.value} label={s.label} />
-          ))}
+        <div className="mt-20 border-t hairline pt-14">
+          <p className="eyebrow">Core values</p>
+          <div className="mt-8 grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+            {coreValues.map((v) => (
+              <div key={v.title}>
+                <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-gold">
+                  {v.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed muted">{v.body}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </Section>
 

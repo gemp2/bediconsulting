@@ -5,13 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import { services } from "@/data/services";
 
 /**
- * Service list with a media panel that reveals a service's photo — or video,
- * where one exists. The active service changes on mouse hover AND on scroll:
- * whichever row sits in the middle band of the viewport becomes active, so the
- * panel steps through the services as the page scrolls.
+ * Full-bleed services section. The active service's photo fills the whole
+ * section behind a frosted-glass panel that lists the services. The active
+ * service changes on mouse hover AND on scroll (the row in the middle band of
+ * the viewport wins), crossfading the background. Each row links to its detail
+ * page, and the active service also shows an explicit "Learn more" button.
  *
- * Drop a clip at /public/media/services/<slug>.mp4 and set `video` in
- * src/data/services.ts to give any service a hover video.
+ * Give a service a background video by setting `video` in
+ * src/data/services.ts (file at /public/media/services/<slug>.mp4).
  */
 export function ServicesShowcase() {
   const [active, setActive] = useState(0);
@@ -25,14 +26,10 @@ export function ServicesShowcase() {
       (entries) => {
         for (const e of entries) {
           if (e.isIntersecting) {
-            const idx = Number(
-              (e.target as HTMLElement).dataset.idx ?? "0",
-            );
-            setActive(idx);
+            setActive(Number((e.target as HTMLElement).dataset.idx ?? "0"));
           }
         }
       },
-      // Thin band across the vertical centre of the viewport.
       { rootMargin: "-48% 0px -48% 0px", threshold: 0 },
     );
     rowRefs.current.forEach((el) => el && obs.observe(el));
@@ -40,73 +37,101 @@ export function ServicesShowcase() {
   }, []);
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1fr_1.05fr] lg:gap-12">
-      {/* media panel */}
-      <div className="order-1 lg:order-2 lg:sticky lg:top-24 lg:h-fit">
-        <div className="relative aspect-[4/3] w-full overflow-hidden border hairline bg-navy2">
-          {s.video ? (
+    <section className="relative overflow-hidden border-b hairline">
+      {/* Full-bleed background: crossfading service photos */}
+      <div aria-hidden className="absolute inset-0">
+        {services.map((sv, i) =>
+          sv.video ? (
             <video
-              key={s.slug}
-              src={s.video}
-              poster={s.poster ?? s.image}
+              key={sv.slug}
+              src={sv.video}
+              poster={sv.poster ?? sv.image}
               autoPlay
               muted
               loop
               playsInline
-              className="h-full w-full object-cover"
-            />
-          ) : s.image ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              key={s.slug}
-              src={s.image}
-              alt={s.name}
-              className="h-full w-full object-cover"
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+                active === i ? "opacity-100" : "opacity-0"
+              }`}
             />
           ) : (
-            <div className="flex h-full items-center justify-center text-xs uppercase tracking-[0.18em] text-bone/30">
-              {s.name}
-            </div>
-          )}
-          <span className="absolute bottom-3 left-3 bg-black/55 px-2.5 py-1 text-[10px] uppercase tracking-[0.16em] text-white">
-            {s.name}
-          </span>
-        </div>
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              key={sv.slug}
+              src={sv.image}
+              alt=""
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+                active === i ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ),
+        )}
+        {/* Legibility gradient over the panel side */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />
       </div>
 
-      {/* list */}
-      <ul className="order-2 divide-y divide-black/5 border-y hairline lg:order-1">
-        {services.map((sv, i) => (
-          <li
-            key={sv.slug}
-            data-idx={i}
-            ref={(el) => {
-              rowRefs.current[i] = el;
-            }}
-          >
-            <Link
-              href={`/services#${sv.slug}`}
-              onMouseEnter={() => setActive(i)}
-              onFocus={() => setActive(i)}
-              className="group grid grid-cols-[38px_1fr] gap-4 py-5 transition-colors"
-            >
-              <span className="font-display text-sm font-semibold text-gold/70">
-                {sv.num}
-              </span>
-              <div>
-                <h3
-                  className={`text-lg transition-colors ${
-                    active === i ? "text-gold" : "text-bone"
-                  }`}
+      {/* Content */}
+      <div className="relative mx-auto flex min-h-[88vh] max-w-7xl items-center px-6 py-24">
+        <div className="w-full max-w-md border border-white/15 bg-black/40 p-8 backdrop-blur-md">
+          <p className="text-[10px] uppercase tracking-[0.22em] text-gold">
+            Our Services
+          </p>
+          <h2 className="mt-3 text-3xl leading-tight text-white">
+            From ground investigation to construction support.
+          </h2>
+
+          <ul className="mt-8 divide-y divide-white/10">
+            {services.map((sv, i) => (
+              <li
+                key={sv.slug}
+                data-idx={i}
+                ref={(el) => {
+                  rowRefs.current[i] = el;
+                }}
+              >
+                <Link
+                  href={`/services#${sv.slug}`}
+                  onMouseEnter={() => setActive(i)}
+                  onFocus={() => setActive(i)}
+                  aria-current={active === i ? "true" : undefined}
+                  className="group flex items-center gap-4 py-3.5"
                 >
-                  {sv.name}
-                </h3>
-                <p className="mt-1 text-sm leading-relaxed muted">{sv.body}</p>
-              </div>
+                  <span className="font-display text-xs font-semibold text-gold/70">
+                    {sv.num}
+                  </span>
+                  <span
+                    className={`flex-1 text-base transition-colors ${
+                      active === i ? "text-gold" : "text-white/85"
+                    }`}
+                  >
+                    {sv.name}
+                  </span>
+                  <span
+                    className={`text-gold transition-opacity ${
+                      active === i
+                        ? "opacity-100"
+                        : "opacity-0 group-hover:opacity-60"
+                    }`}
+                  >
+                    →
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {/* Active service detail + explicit button */}
+          <div className="mt-6 border-t border-white/15 pt-5">
+            <p className="text-sm leading-relaxed text-white/75">{s.body}</p>
+            <Link
+              href={`/services#${s.slug}`}
+              className="mt-5 inline-flex items-center gap-2 bg-gold px-5 py-2.5 text-xs uppercase tracking-[0.14em] text-white transition-colors hover:bg-gold/85"
+            >
+              Learn more →
             </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

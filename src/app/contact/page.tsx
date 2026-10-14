@@ -31,7 +31,7 @@ export default function ContactPage() {
               <dd className="mt-2">
                 <a
                   href={`mailto:${site.email}`}
-                  className="text-sm text-gold hover:underline"
+                  className="-my-1 inline-block py-1 text-sm text-gold hover:underline"
                 >
                   {site.email}
                 </a>
@@ -60,7 +60,7 @@ export default function ContactPage() {
                 </address>
                 <a
                   href={`tel:${site.phone.replace(/\(0\)/, "").replace(/[^\d+]/g, "")}`}
-                  className="mt-2 inline-block text-sm text-gold hover:underline"
+                  className="mt-1 inline-block py-1 text-sm text-gold hover:underline"
                 >
                   {site.phone}
                 </a>

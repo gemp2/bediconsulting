@@ -7,7 +7,14 @@ import {
   DraftBadge,
   ImagePlaceholder,
   Section,
+  SectionHeading,
 } from "@/components/ui";
+import { ComparisonsSection } from "@/components/case-study/ComparisonsSection";
+import { LimitsNextSteps } from "@/components/case-study/LimitsNextSteps";
+import { MediaGallery } from "@/components/case-study/MediaGallery";
+import { MethodSteps } from "@/components/case-study/MethodSteps";
+import { ResultsSection } from "@/components/case-study/ResultsSection";
+import { ToolLinkCard } from "@/components/case-study/ToolLinkCard";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -23,6 +30,9 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return {
     title: project.name,
     description: project.description,
+    ...(project.caseStudy?.noindex && {
+      robots: { index: false, follow: false },
+    }),
   };
 }
 
@@ -38,10 +48,16 @@ export default async function ProjectPage({ params }: Params) {
       <Section className="border-b hairline">
         <Link
           href="/projects"
-          className="text-xs uppercase tracking-[0.14em] text-gold hover:underline"
+          className="-my-2 inline-block py-2 text-xs uppercase tracking-[0.14em] text-gold hover:underline"
         >
           ← All projects
         </Link>
+
+        {cs.draft && (
+          <div className="mt-8">
+            <DraftBadge label={cs.draft} />
+          </div>
+        )}
 
         <p className="eyebrow mt-8">{cs.category}</p>
         <h1 className="mt-4 max-w-4xl text-4xl leading-tight md:text-5xl">
@@ -128,6 +144,35 @@ export default async function ProjectPage({ params }: Params) {
         </div>
       </Section>
 
+      {/* How it works */}
+      {(cs.method || cs.media) && (
+        <Section className="border-b hairline">
+          <SectionHeading eyebrow="Method" title="How it works." />
+          {cs.method && (
+            <div className="mt-14">
+              <MethodSteps steps={cs.method} />
+            </div>
+          )}
+          {cs.media && (
+            <div className="mt-14">
+              <MediaGallery items={cs.media} />
+            </div>
+          )}
+        </Section>
+      )}
+
+      {cs.results && (
+        <Section className="border-b hairline">
+          <ResultsSection results={cs.results} />
+        </Section>
+      )}
+
+      {cs.comparisons && (
+        <Section className="border-b hairline">
+          <ComparisonsSection comparisons={cs.comparisons} />
+        </Section>
+      )}
+
       {/* Problem → Solution → Value */}
       <Section className="border-b hairline">
         <div className="grid gap-6 lg:grid-cols-3">
@@ -151,6 +196,26 @@ export default async function ProjectPage({ params }: Params) {
           />
         </div>
       </Section>
+
+      {(cs.limitations || cs.nextSteps) && (
+        <Section className="border-b hairline">
+          <LimitsNextSteps
+            limitations={cs.limitations}
+            nextSteps={cs.nextSteps}
+          />
+        </Section>
+      )}
+
+      {(cs.toolLink || cs.relatedLink) && (
+        <Section className="border-b hairline">
+          <div className="space-y-6">
+            {cs.toolLink && <ToolLinkCard tool={cs.toolLink} />}
+            {cs.relatedLink && (
+              <ToolLinkCard tool={cs.relatedLink} kicker="Related project" />
+            )}
+          </div>
+        </Section>
+      )}
 
       {/* Highlights */}
       <Section className="border-b hairline">

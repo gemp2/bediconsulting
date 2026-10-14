@@ -473,7 +473,7 @@ export function ApparentDipTool() {
       </div>
 
       {/* compact controls: inputs + results */}
-      <div className="grid gap-px bg-[color:var(--hairline)] md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-px bg-[color:var(--hairline)] md:grid-cols-2">
         {/* inputs */}
         <div className="bg-white px-6 py-5">
           <p className="mb-4 text-[10px] uppercase tracking-[0.18em] text-gold">
@@ -483,8 +483,8 @@ export function ApparentDipTool() {
             {fields.map((k) => {
               const f = FIELDS[k];
               return (
-                <div key={k} className="flex items-center gap-3">
-                  <label className="w-28 shrink-0 text-xs text-bone/70">
+                <div key={k} className="flex flex-wrap items-center gap-x-3 gap-y-1.5 sm:flex-nowrap">
+                  <label className="w-full shrink-0 text-xs text-bone/70 sm:w-28">
                     {f.label}
                   </label>
                   <input
@@ -493,7 +493,7 @@ export function ApparentDipTool() {
                     max={f.max}
                     value={vals[f.key]}
                     onChange={(e) => set(f.key, +e.target.value)}
-                    className="h-1 flex-1 accent-[#f7941e]"
+                    className="h-1 min-w-0 flex-1 accent-[#f7941e]"
                   />
                   <input
                     type="number"

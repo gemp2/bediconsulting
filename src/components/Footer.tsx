@@ -37,7 +37,7 @@ export function Footer() {
             <p className="mt-4 text-sm muted">{site.tagline}</p>
             <a
               href={`mailto:${site.email}`}
-              className="mt-4 inline-block text-sm text-gold hover:underline"
+              className="mt-3 inline-block py-1 text-sm text-gold hover:underline"
             >
               {site.email}
             </a>
@@ -45,12 +45,12 @@ export function Footer() {
 
           <div className="flex flex-col gap-8 sm:flex-row sm:gap-16">
             <nav aria-label="Footer">
-              <ul className="grid grid-cols-2 gap-x-12 gap-y-3">
+              <ul className="grid grid-cols-2 gap-x-12">
                 {nav.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className="text-sm text-bone/70 transition-colors hover:text-gold"
+                      className="inline-block py-1.5 text-sm text-bone/70 transition-colors hover:text-gold"
                     >
                       {item.label}
                     </Link>

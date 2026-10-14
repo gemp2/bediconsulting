@@ -1,3 +1,6 @@
+import { caerphilly } from "./case-studies/caerphilly";
+import { chippingSodbury } from "./case-studies/chipping-sodbury";
+
 export type ProjectType =
   | "Road Tunnels"
   | "Metro / Rail"
@@ -47,6 +50,68 @@ export type CaseStudy = {
   solution: { heading: string; points: string[] };
   value: { heading: string; points: string[] };
   highlights: { title: string; body: string }[];
+
+  /* Optional sections (digital-assessment case studies). Each renders only when present. */
+
+  /** When set, a DraftBadge with this label is shown at the top of the page. */
+  draft?: string;
+  /** "How it works" gallery. */
+  media?: CaseStudyMedia[];
+  method?: {
+    step: string;
+    title: string;
+    body: string;
+    media?: Omit<CaseStudyMedia, "caption">;
+  }[];
+  results?: {
+    heading: string;
+    intro?: string;
+    stats: { value: string; label: string; note?: string }[];
+    /** `wide`: on phones the figure keeps a readable width and scrolls inside its box. */
+    figures?: { src: string; caption: string; wide?: boolean }[];
+  };
+  comparisons?: {
+    heading: string;
+    intro?: string;
+    rows: ComparisonRow[];
+  };
+  limitations?: { heading: string; points: string[] };
+  nextSteps?: { heading: string; points: string[] };
+  toolLink?: { href: string; label: string; body: string };
+  /** Link to a related case study, shown as a card after the tool link. */
+  relatedLink?: { href: string; label: string; body: string };
+  /** Keeps the page out of search engines and off the home page. */
+  noindex?: boolean;
+};
+
+export type CaseStudyMedia = {
+  kind: "video" | "image";
+  src: string;
+  /** Poster JPG — required in practice for videos. */
+  poster?: string;
+  caption?: string;
+};
+
+export type ComparisonOutcome =
+  | "agrees"
+  | "deeper"
+  | "not-in-records"
+  | "not-a-defect";
+
+export type ComparisonRow = {
+  outcome: ComparisonOutcome;
+  label: string;
+  /** Section-marker interval, e.g. "SM79-80". */
+  spot: string;
+  mapSrc: string;
+  /** Highlight box on the map crop as fractions of its size: [x, y, width, height]. */
+  box: [number, number, number, number];
+  /** Existing inspection record code, e.g. "4J2". */
+  code: string;
+  codeNote: string;
+  photoSrc: string;
+  /** Measured value on site, e.g. "42 mm" (shown as "Measured 42 mm"), or a word such as "calcite" shown as is. */
+  measured: string;
 };
 
 export const projectTypes: ProjectType[] = [
@@ -78,7 +143,9 @@ export const typeColors: Record<ProjectType, string> = {
 };
 
 /**
- * 26 unique projects.
+ * 26 unique projects, plus the digital-assessment case studies appended at
+ * the end of the array (src/data/case-studies/). Counts on the site derive from
+ * the array, not from this comment.
  *
  * The draft map listed 28 entries, but two ("VSU — 3D/4D BIM Management" and
  * "Riyadh Metro — FEM Digital Design") were the Victoria and Riyadh projects
@@ -641,9 +708,18 @@ export const projects: Project[] = [
     description:
       "Geotechnical design for a 30MW geothermal power project on Lihir Island, Papua New Guinea.",
   },
+  // Digital-assessment case studies kept in their own files (src/data/case-studies/).
+  chippingSodbury,
+  caerphilly,
 ];
 
 export const featuredProjects = projects.filter((p) => p.caseStudy);
+
+/**
+ * Projects that may appear on the home page. Pages marked `noindex` (awaiting
+ * client approval) stay reachable from /projects but are not linked from home.
+ */
+export const listedProjects = projects.filter((p) => !p.caseStudy?.noindex);
 
 export function projectMatchesType(p: Project, type: ProjectType): boolean {
   return p.type === type || (p.alsoType?.includes(type) ?? false);

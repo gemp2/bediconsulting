@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { projects, typeColors, projectTypes } from "@/data/projects";
+import { listedProjects, typeColors, projectTypes } from "@/data/projects";
 
 // MapLibre touches `window`, so keep it out of the server bundle.
 const ProjectMap = dynamic(
@@ -20,7 +20,7 @@ export function HomeMap() {
   return (
     <div>
       <div className="h-[70vh] min-h-[420px] w-full border-y hairline">
-        <ProjectMap projects={projects} className="h-full w-full" />
+        <ProjectMap projects={listedProjects} className="h-full w-full" />
       </div>
 
       {/* Legend keeps the colours readable at a glance. */}

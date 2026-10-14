@@ -126,7 +126,7 @@ export function LinkedInFeed() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-medium text-gold hover:underline"
+                    className="inline-block py-1 text-xs font-medium text-gold hover:underline"
                   >
                     View post →
                   </a>

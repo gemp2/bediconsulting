@@ -27,7 +27,9 @@ export function ProjectMap({
   // Kept in a ref so marker click handlers always see the current callback
   // without needing to tear down and rebuild every marker on each render.
   const onSelectRef = useRef(onSelect);
-  onSelectRef.current = onSelect;
+  useEffect(() => {
+    onSelectRef.current = onSelect;
+  });
   // Only one popup open at a time.
   const openPopup = useRef<import("maplibre-gl").Popup | null>(null);
 

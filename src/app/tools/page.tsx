@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
-import { upcomingTools } from "@/data/tools";
-import { Section, SectionHeading } from "@/components/ui";
+import Link from "next/link";
+import { platforms, upcomingTools } from "@/data/tools";
+import {
+  ImagePlaceholder,
+  Section,
+  SectionHeading,
+} from "@/components/ui";
 import { ApparentDipTool } from "@/components/tools/ApparentDipTool";
 
 export const metadata: Metadata = {
@@ -45,6 +50,59 @@ export default function ToolsPage() {
           on the apparent dip</em>, Economic Geology, v. 63. Provided as-is for
           guidance — verify against your own analysis.
         </p>
+      </Section>
+
+      {/* Platforms built for specific projects */}
+      <Section className="border-b hairline">
+        <SectionHeading
+          eyebrow="Project platforms"
+          title="Built for a project, shared as a demo."
+        />
+        <ul className="mt-10 grid gap-6 md:grid-cols-2">
+          {platforms.map((p) => (
+            <li key={p.slug}>
+              <Link
+                href={p.href}
+                className="group flex h-full flex-col border hairline bg-navy2/40 transition-colors hover:border-gold/50"
+              >
+                {p.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    loading="lazy"
+                    className="aspect-[16/9] w-full object-cover"
+                  />
+                ) : (
+                  <ImagePlaceholder label={p.name} aspect="aspect-[16/9]" />
+                )}
+                <div className="flex flex-1 flex-col p-6">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <p className="text-[10px] uppercase tracking-[0.18em] muted">
+                      {p.project}
+                    </p>
+                    <span
+                      className={`border px-2 py-0.5 text-[10px] uppercase tracking-[0.14em] ${
+                        p.status === "live"
+                          ? "border-emerald-600/40 text-emerald-700"
+                          : "border-black/20 text-bone/60"
+                      }`}
+                    >
+                      {p.status === "live" ? "Live demo" : "Concept"}
+                    </span>
+                  </div>
+                  <h3 className="mt-3 text-lg leading-snug">{p.name}</h3>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed muted">
+                    {p.summary}
+                  </p>
+                  <span className="mt-6 text-xs uppercase tracking-[0.14em] text-gold group-hover:underline">
+                    Open →
+                  </span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </Section>
 
       {/* Growing library */}

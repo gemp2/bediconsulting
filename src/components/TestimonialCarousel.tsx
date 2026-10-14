@@ -33,18 +33,24 @@ export function TestimonialCarousel() {
         >
           ‹
         </button>
-        <div className="flex gap-2" role="tablist" aria-label="References">
+        <div className="flex" role="tablist" aria-label="References">
           {testimonials.map((tt, idx) => (
             <button
               key={tt.name}
               type="button"
+              role="tab"
               aria-label={`Reference ${idx + 1}`}
               aria-selected={idx === i}
               onClick={() => setI(idx)}
-              className={`h-2 w-2 rounded-full transition-colors ${
-                idx === i ? "bg-gold" : "bg-black/20 hover:bg-black/40"
-              }`}
-            />
+              className="group flex h-6 w-6 items-center justify-center"
+            >
+              <span
+                aria-hidden
+                className={`h-2 w-2 rounded-full transition-colors ${
+                  idx === i ? "bg-gold" : "bg-black/20 group-hover:bg-black/40"
+                }`}
+              />
+            </button>
           ))}
         </div>
         <button

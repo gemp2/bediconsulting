@@ -45,4 +45,15 @@ export const platforms: Platform[] = [
     image: "/media/tools/caerphilly-platform.jpg",
     noindex: true,
   },
+  {
+    slug: "digital-tunnel",
+    name: "Digital Tunnel - field app",
+    project: "Chipping Sodbury Tunnel",
+    summary:
+      "Mockup of a phone app for inspectors: the depth map of each section, the existing records and the spots to check, with camera, 3D and offline use.",
+    status: "concept",
+    href: "/tools/digital-tunnel",
+    image: "/media/tools/digital-tunnel.jpg",
+    noindex: true,
+  },
 ];

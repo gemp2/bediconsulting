@@ -4,6 +4,7 @@ import type { NextConfig } from "next";
 const noindexPaths = [
   "/tools/chipping-sodbury-validation/:path*",
   "/tools/caerphilly-platform/:path*",
+  "/tools/digital-tunnel/:path*",
 ];
 
 const nextConfig: NextConfig = {

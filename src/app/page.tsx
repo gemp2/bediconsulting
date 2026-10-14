@@ -1,5 +1,5 @@
 import { site, stats } from "@/data/site";
-import { projects, countryCount } from "@/data/projects";
+import { listedProjects, countryCount } from "@/data/projects";
 import { HeroVideo } from "@/components/HeroVideo";
 import { HomeMap } from "@/components/HomeMap";
 import { LogoMarquee } from "@/components/LogoMarquee";
@@ -50,7 +50,7 @@ export default function HomePage() {
           <p className="eyebrow">Projects</p>
           <h2 className="mt-3 text-3xl leading-tight md:text-4xl">Where we work</h2>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed muted">
-            {projects.length} projects across {countryCount} countries. Select a
+            {listedProjects.length} projects across {countryCount} countries. Select a
             pin for the project and detail.
           </p>
         </div>

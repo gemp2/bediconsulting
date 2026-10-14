@@ -136,7 +136,7 @@ export default function AboutPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${member.name} on LinkedIn`}
-                  className="mt-3 inline-flex text-bone/40 transition-colors hover:text-[#0A66C2]"
+                  className="-ml-2 mt-1 inline-flex p-2 text-bone/40 transition-colors hover:text-[#0A66C2]"
                 >
                   <LinkedInMark className="h-4 w-4" />
                 </a>

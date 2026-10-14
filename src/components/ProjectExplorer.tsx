@@ -182,7 +182,7 @@ export function ProjectExplorer() {
                       <span>
                         <span className="block text-sm text-bone">{p.name}</span>
                         <span className="mt-0.5 block text-xs muted">
-                          {p.location} · {p.year}
+                          {p.location} - {p.year}
                         </span>
                       </span>
                     </span>
@@ -273,9 +273,9 @@ function ProjectSummary({ project }: { project: Project }) {
       </span>
       <h3 className="mt-2 text-xl">{project.name}</h3>
       <p className="mt-1 text-xs muted">
-        {project.location} · {project.year}
+        {project.location} - {project.year}
         {project.endYear ? `–${project.endYear}` : ""}
-        {project.client ? ` · ${project.client}` : ""}
+        {project.client ? ` - ${project.client}` : ""}
       </p>
       <p className="mt-4 max-w-2xl text-sm leading-relaxed muted">
         {project.description}
@@ -303,7 +303,7 @@ function ProjectCard({ project }: { project: Project }) {
       </span>
       <h3 className="mt-3 text-lg leading-snug">{project.name}</h3>
       <p className="mt-1 text-xs muted">
-        {project.location} · {project.year}
+        {project.location} - {project.year}
       </p>
       <p className="mt-4 line-clamp-3 text-sm leading-relaxed muted">
         {project.description}

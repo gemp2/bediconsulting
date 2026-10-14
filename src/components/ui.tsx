@@ -102,7 +102,7 @@ export function Stat({ value, label }: { value: string; label: string }) {
  */
 export function DraftBadge({ label = "Draft content" }: { label?: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 border border-amber-400/50 bg-amber-400/10 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-amber-300">
+    <span className="inline-flex items-center gap-1.5 border border-amber-500 bg-amber-100 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-800">
       {label}
     </span>
   );

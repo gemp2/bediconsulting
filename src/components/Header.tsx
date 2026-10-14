@@ -70,7 +70,7 @@ export function Header() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className="md:hidden text-xs uppercase tracking-[0.14em] text-white/80"
+          className="-my-3.5 -mr-3 px-3 py-3.5 md:hidden text-xs uppercase tracking-[0.14em] text-white/80"
         >
           {open ? "Close" : "Menu"}
         </button>

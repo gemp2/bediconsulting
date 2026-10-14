@@ -245,7 +245,7 @@ export const projects: Project[] = [
       },
     ],
     caseStudy: {
-      category: "Metro & Rail · SCL Tunnelling · London",
+      category: "Metro & Rail - SCL Tunnelling - London",
       stats: [
         { value: "£741M", label: "Contract value" },
         { value: "2,000+", label: "Jet grout columns" },
@@ -299,7 +299,7 @@ export const projects: Project[] = [
         },
         {
           title: "Four international awards",
-          body: "ITA 2014 · ITA Finalist 2015 · BGA Fleming 2015 · Specialist TY 2016.",
+          body: "ITA 2014, ITA Finalist 2015, BGA Fleming 2015, Specialist TY 2016.",
         },
       ],
     },
@@ -508,7 +508,7 @@ export const projects: Project[] = [
     contractor: "BACS",
     role: "Detailed geotechnical & structural design",
     caseStudy: {
-      category: "Deep Excavation · TBM Launch Shafts · Saudi Arabia",
+      category: "Deep Excavation - TBM Launch Shafts - Saudi Arabia",
       stats: [
         { value: "$12bn", label: "Metro programme value" },
         { value: "100m × 16m", label: "Each shaft clear span" },
@@ -609,7 +609,7 @@ export const projects: Project[] = [
     client: "Network Rail",
     role: "Digital condition assessment + repair scoping",
     caseStudy: {
-      category: "Digital Assessment · Heritage Railway · Non-invasive",
+      category: "Digital Assessment - Heritage Railway - Non-invasive",
       stats: [
         { value: "1845", label: "Built — I.K. Brunel" },
         { value: "~2km", label: "Tunnel length surveyed" },

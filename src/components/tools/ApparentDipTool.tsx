@@ -442,7 +442,7 @@ export function ApparentDipTool() {
         <div>
           <h3 className="text-xl text-bone">Tunnel Apparent Dip Converter</h3>
           <p className="mt-1 text-xs muted">
-            Structural geology · tunnelling · free tool
+            Structural geology - tunnelling - free tool
           </p>
         </div>
         <div className="flex border hairline">
@@ -579,7 +579,7 @@ export function ApparentDipTool() {
         <figure className="bg-white p-4">
           <figcaption className="mb-2 flex items-center gap-2 text-[10px] uppercase tracking-[0.14em] muted">
             <span className="h-1.5 w-1.5 rounded-full" style={{ background: C.orange }} />
-            3D view · drag to rotate
+            3D view - drag to rotate
           </figcaption>
           <div ref={mount} className="h-[300px] w-full" />
         </figure>

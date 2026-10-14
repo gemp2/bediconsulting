@@ -91,7 +91,7 @@ export function ProjectMap({
         `<div style="font-family:sans-serif;padding:4px 6px 6px">
            <span style="display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:${typeColors[project.type]}">${escapeHtml(project.type)}</span>
            <strong style="display:block;margin-top:3px;font-size:13px;color:#06090f">${escapeHtml(project.name)}</strong>
-           <span style="display:block;margin-top:2px;font-size:11px;color:#555">${escapeHtml(project.location)} · ${project.year}</span>
+           <span style="display:block;margin-top:2px;font-size:11px;color:#555">${escapeHtml(project.location)} - ${project.year}</span>
            <a href="${href}" style="display:inline-block;margin-top:9px;font-size:11px;font-weight:600;color:#f7941e;text-decoration:none">More detail →</a>
          </div>`,
       );

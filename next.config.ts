@@ -1,12 +1,17 @@
 import type { NextConfig } from "next";
 
+/** Reserved JSM area: encrypted static pages in public/reserved/jsm, opened with a password. */
+const reservedPages = ["/reserved/jsm", "/reserved/jsm/summary/lhr", "/reserved/jsm/summary/uxb", "/reserved/jsm/summary/fdl", "/reserved/jsm/summary/a312"];
+
 const nextConfig: NextConfig = {
-  /** Reserved JSM dashboard: an encrypted static page (public/riservato/jsm/index.html), opened with a password. */
   async rewrites() {
-    return [{ source: "/riservato/jsm", destination: "/riservato/jsm/index.html" }];
+    return reservedPages.map((source) => ({ source, destination: `${source}/index.html` }));
+  },
+  async redirects() {
+    return [{ source: "/riservato/jsm", destination: "/reserved/jsm", permanent: true }];
   },
   async headers() {
-    return [{ source: "/riservato/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] }];
+    return [{ source: "/reserved/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] }];
   },
 };
 
